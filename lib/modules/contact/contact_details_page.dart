@@ -29,7 +29,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
     bottomBarItem.clear();
     bottomBarItem.addAll([
       BaseMenuItem(label: "Favourite", icon: "star_btn.svg", onTap: () {}),
-      BaseMenuItem(label: "Edit", icon: "star_btn.svg", onTap: () {}),
+      BaseMenuItem(label: "Edit", icon: "edit_btn.svg", onTap: () {}),
       BaseMenuItem(label: "Menu", icon: "menu_btn.svg", onTap: () {})
     ]);
   }
@@ -107,7 +107,9 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                   decoration: const BoxDecoration(color: AppTheme.DARK_PURPLE),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [],
+                    children: [
+                      for (BaseMenuItem item in bottomBarItem) buildItem(item),
+                    ],
                   ),
                 )
               ],
@@ -184,6 +186,19 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
             fontSize: 25,
             fontWeight: FontWeight.w500,
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildItem(BaseMenuItem item) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: item.onTap,
+      child: Column(
+        children: [
+          imageAsset(res: item.icon, width: 20, height: 20),
+          BaseText(item.label),
         ],
       ),
     );
