@@ -1,6 +1,7 @@
 import 'package:app2/model/base_menu_item.dart';
 import 'package:app2/modules/contact/argument/contact_details_argument.dart';
 import 'package:app2/utils/constants/constant.dart';
+import 'package:app2/utils/get_page_router.dart';
 import 'package:app2/utils/image_utils.dart';
 import 'package:app2/widgets/base_scaffold.dart';
 import 'package:app2/widgets/base_text.dart';
@@ -29,7 +30,15 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
     bottomBarItem.clear();
     bottomBarItem.addAll([
       BaseMenuItem(label: "Favourite", icon: "star_btn.svg", onTap: () {}),
-      BaseMenuItem(label: "Edit", icon: "edit_btn.svg", onTap: () {}),
+      BaseMenuItem(
+          label: "Edit",
+          icon: "edit_btn.svg",
+          onTap: () {
+            Get.toNamed(
+              GetPageRoutes.editContact,
+              arguments: ContactArgument(arguments.contact),
+            );
+          }),
       BaseMenuItem(label: "Menu", icon: "menu_btn.svg", onTap: () {})
     ]);
   }
@@ -92,9 +101,34 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                                 height: MediaQuery.of(context).padding.top +
                                     kToolbarHeight),
                             buildRowText(
-                                "Contact No", arguments.contact?.contactNo),
+                              "Contact No",
+                              arguments.contact?.contactNo,
+                            ),
                             const SizedBox(height: 20),
-                            buildRowText("Name", arguments.contact?.name),
+                            buildRowText(
+                              "Name",
+                              arguments.contact?.name,
+                            ),
+                            const SizedBox(height: 20),
+                            buildRowText(
+                              "Organisation",
+                              arguments.contact?.organisation,
+                            ),
+                            const SizedBox(height: 20),
+                            buildRowText(
+                              "Email",
+                              arguments.contact?.email,
+                            ),
+                            const SizedBox(height: 20),
+                            buildRowText(
+                              "Address",
+                              arguments.contact?.address,
+                            ),
+                            const SizedBox(height: 20),
+                            buildRowText(
+                              "Note",
+                              arguments.contact?.note,
+                            ),
                           ],
                         ),
                       ),
@@ -155,12 +189,12 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                 shape: BoxShape.circle, color: AppTheme.CELL_GRANDIENT_2_COLOR),
             child: BaseText(
               arguments.contact?.name?.substring(0, 1).toUpperCase(),
-              fontSize: 50,
+              fontSize: 45,
             ),
           ),
           BaseText(
             arguments.contact?.name,
-            fontSize: 25,
+            fontSize: 18,
             fontWeight: FontWeight.w500,
           ),
           Row(
@@ -190,7 +224,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
 
   Widget buildItem(BaseMenuItem item) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: item.onTap,

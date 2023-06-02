@@ -10,7 +10,18 @@ class CreateContactViewModel {
   Future<void> saveContact(Contact contact) async {
     //save data to firebase
     final contactDoc = FirebaseFirestore.instance.collection("contact").doc();
-    final json = contact.toJson();
+
+    final saveData = Contact(
+      id: contactDoc.id,
+      name: contact.name,
+      contactNo: contact.contactNo,
+      organisation: contact.organisation,
+      email: contact.email,
+      address: contact.address,
+      note: contact.note,
+    );
+
+    final json = saveData.toJson();
     await contactDoc
         .set(json)
         .whenComplete(() => success())

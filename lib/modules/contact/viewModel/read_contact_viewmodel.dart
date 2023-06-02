@@ -17,9 +17,15 @@ class ReadContactViewModel extends BaseViewModel {
       var data = document.data() as Map<String, dynamic>;
 
       var contact = Contact(
+        id: data['id'],
         name: data['name'],
         contactNo: data['contactNo'],
+        organisation: data['organisation'],
+        email: data['email'],
+        address: data['address'],
+        note: data['note'],
       );
+
       contactList.add(contact);
       // print(document.data());
       // print('${contactList.length}');

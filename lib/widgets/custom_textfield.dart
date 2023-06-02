@@ -121,7 +121,7 @@ class CustomTextField extends StatelessWidget {
                     child: BaseText(
                       label ?? '',
                       color: labelTextColor ?? AppTheme.WHITE_COLOR,
-                      fontSize: 20,
+                      fontSize: 18,
                       letterSpacing: 0.50,
                     ),
                   ),

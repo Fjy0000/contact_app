@@ -1,6 +1,7 @@
 import 'package:app2/modules/contact/add_contact_page.dart';
 import 'package:app2/modules/contact/contact_details_page.dart';
 import 'package:app2/modules/contact/contact_page.dart';
+import 'package:app2/modules/contact/edit_contact_page.dart';
 import 'package:app2/modules/login/login_page.dart';
 import 'package:app2/splashscreen/splashscreen.dart';
 import 'package:get/get.dart';
@@ -21,6 +22,7 @@ class GetPageRoutes {
       GetPage(name: contact, page: () => ContactPage()),
       GetPage(name: addContact, page: () => AddContactPage()),
       GetPage(name: contactDetails, page: () => ContactDetailsPage()),
+      GetPage(name: editContact, page: () => EditContactPage()),
     ];
   }
 }
