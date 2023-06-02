@@ -125,13 +125,14 @@ class _ContactPageState extends State<ContactPage> {
               padding: const EdgeInsets.all(20),
               margin: const EdgeInsets.only(right: 20),
               decoration: const BoxDecoration(
-                  shape: BoxShape.circle, color: AppTheme.COLOR_YELLOW),
+                  shape: BoxShape.circle, color: AppTheme.BLUE),
               child: BaseText(
                 data.name?.substring(0, 1).toUpperCase(),
-                fontSize: 25,
+                fontSize: 18,
+                color: AppTheme.BLACK24,
               ),
             ),
-            BaseText(data.name, fontSize: 20),
+            BaseText(data.name, fontSize: 18),
           ],
         ),
       ),

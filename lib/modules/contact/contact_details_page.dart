@@ -92,11 +92,9 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                                 height: MediaQuery.of(context).padding.top +
                                     kToolbarHeight),
                             buildRowText(
-                                "Contact No", arguments.contact?.contactNo,
-                                isCall: true),
+                                "Contact No", arguments.contact?.contactNo),
                             const SizedBox(height: 20),
-                            buildRowText("Name", arguments.contact?.name,
-                                isCall: false),
+                            buildRowText("Name", arguments.contact?.name),
                           ],
                         ),
                       ),
@@ -120,42 +118,21 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
     );
   }
 
-  Widget buildRowText(String? label, String? data, {required bool isCall}) {
+  Widget buildRowText(String? label, String? data) {
     return Row(
       children: [
         BaseText(
-          label,
-          fontSize: 20,
+          "${label} :",
+          fontSize: 14,
           fontWeight: FontWeight.w500,
         ),
         const SizedBox(width: 10),
-        const BaseText(":"),
-        const SizedBox(width: 10),
         Expanded(
-            child: BaseText(
-          data,
-          fontSize: 18,
-        )),
-        if (isCall == true)
-          Row(
-            children: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.phone,
-                  color: Colors.blue,
-                ),
-              ),
-              const SizedBox(width: 5),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.chat,
-                  color: Colors.blue,
-                ),
-              ),
-            ],
+          child: BaseText(
+            data,
+            fontSize: 16,
           ),
+        ),
       ],
     );
   }
@@ -186,20 +163,47 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
             fontSize: 25,
             fontWeight: FontWeight.w500,
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.phone,
+                  color: Colors.blue,
+                ),
+              ),
+              const SizedBox(width: 5),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.chat,
+                  color: Colors.blue,
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
   }
 
   Widget buildItem(BaseMenuItem item) {
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: item.onTap,
-      child: Column(
-        children: [
-          imageAsset(res: item.icon, width: 20, height: 20),
-          BaseText(item.label),
-        ],
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: item.onTap,
+        child: Column(
+          children: [
+            imageAsset(
+                res: item.icon,
+                width: 20,
+                height: 20,
+                color: AppTheme.WHITE_COLOR),
+            BaseText(item.label),
+          ],
+        ),
       ),
     );
   }
