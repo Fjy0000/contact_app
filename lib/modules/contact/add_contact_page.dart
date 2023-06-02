@@ -100,12 +100,13 @@ class _AddContactPageState extends State<AddContactPage> {
                   } else {
                     viewModel.saveContact(
                       Contact(
-                          name: nameController.text,
-                          contactNo: contactNoController.text,
-                          email: emailController.text,
-                          organisation: organisationController.text,
-                          address: addressController.text,
-                          note: noteController.text),
+                        name: nameController.text,
+                        contactNo: contactNoController.text,
+                        email: emailController.text,
+                        organisation: organisationController.text,
+                        address: addressController.text,
+                        note: noteController.text,
+                      ),
                     );
                   }
                 },
