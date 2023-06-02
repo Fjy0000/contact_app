@@ -1,11 +1,9 @@
 import 'package:app2/model/body/contact_body.dart';
 import 'package:app2/modules/contact/viewModel/create_contact_viewmodel.dart';
-import 'package:app2/utils/constants/constant.dart';
 import 'package:app2/utils/extension.dart';
 import 'package:app2/widgets/base_app_bar.dart';
 import 'package:app2/widgets/base_button.dart';
 import 'package:app2/widgets/base_scaffold.dart';
-import 'package:app2/widgets/base_text.dart';
 import 'package:app2/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 
@@ -73,7 +71,6 @@ class _AddContactPageState extends State<AddContactPage> {
                       CustomTextField(
                         label: "Address",
                         controller: addressController,
-                        hintText: "Enter the full name",
                         removeDecoration: true,
                         maxLength: 15,
                       ),

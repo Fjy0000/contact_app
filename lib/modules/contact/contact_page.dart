@@ -11,7 +11,6 @@ import 'package:app2/utils/constants/constant.dart';
 import 'package:app2/utils/constants/enums.dart';
 import 'package:app2/utils/get_page_router.dart';
 import 'package:app2/widgets/base_app_bar.dart';
-import 'package:app2/widgets/base_button.dart';
 import 'package:app2/widgets/base_scaffold.dart';
 import 'package:app2/widgets/base_state_ui.dart';
 import 'package:app2/widgets/base_text.dart';

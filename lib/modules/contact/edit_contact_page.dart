@@ -4,7 +4,6 @@ import 'package:app2/utils/extension.dart';
 import 'package:app2/widgets/base_app_bar.dart';
 import 'package:app2/widgets/base_button.dart';
 import 'package:app2/widgets/base_scaffold.dart';
-import 'package:app2/widgets/base_text.dart';
 import 'package:app2/widgets/custom_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
