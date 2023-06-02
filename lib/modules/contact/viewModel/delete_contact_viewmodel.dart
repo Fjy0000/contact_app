@@ -6,27 +6,20 @@ import 'package:app2/utils/extension.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
-class EditContactViewModel {
-  Future<void> editContact(Contact contact) async {
+class DeleteContactViewModel {
+  Future<void> deleteContact(Contact contact) async {
     //save data to firebase
     final contactDoc =
         FirebaseFirestore.instance.collection("contact").doc(contact.id);
 
     await contactDoc
-        .update({
-          "name": contact.name,
-          "contactNo": contact.contactNo,
-          "organisation": contact.organisation,
-          "email": contact.email,
-          "address": contact.address,
-          "note": contact.note,
-        })
+        .delete()
         .whenComplete(() => success())
-        .catchError((e) => showToast("Error updating contact $e"));
+        .catchError((e) => showToast("Error deleting contact $e"));
   }
 
   void success() {
-    showToast("Successfully Updated!");
+    showToast("Successfully Delete!");
     eventBus?.fire(BaseEventBus(EventBusAction.REFRESH_CONTACT));
     Get.back();
   }

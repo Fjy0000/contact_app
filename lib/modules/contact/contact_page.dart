@@ -5,11 +5,13 @@ import 'package:app2/base/base_viewmodel.dart';
 import 'package:app2/main.dart';
 import 'package:app2/model/body/contact_body.dart';
 import 'package:app2/modules/contact/argument/contact_details_argument.dart';
+import 'package:app2/modules/contact/viewModel/delete_contact_viewmodel.dart';
 import 'package:app2/modules/contact/viewModel/read_contact_viewmodel.dart';
 import 'package:app2/utils/constants/constant.dart';
 import 'package:app2/utils/constants/enums.dart';
 import 'package:app2/utils/get_page_router.dart';
 import 'package:app2/widgets/base_app_bar.dart';
+import 'package:app2/widgets/base_button.dart';
 import 'package:app2/widgets/base_scaffold.dart';
 import 'package:app2/widgets/base_state_ui.dart';
 import 'package:app2/widgets/base_text.dart';
@@ -25,7 +27,7 @@ class ContactPage extends StatefulWidget {
 
 class _ContactPageState extends State<ContactPage> {
   final viewModel = ReadContactViewModel();
-
+  final deleteViewModel = DeleteContactViewModel();
   StreamSubscription? subscription;
 
   @override
@@ -114,7 +116,7 @@ class _ContactPageState extends State<ContactPage> {
             arguments: ContactArgument(data));
       },
       onLongPressStart: (LongPressStartDetails details) {
-        showPopUpMenu(context, details.globalPosition);
+        showPopUpMenu(context, details.globalPosition, data);
       },
       behavior: HitTestBehavior.opaque,
       child: Container(
@@ -139,7 +141,7 @@ class _ContactPageState extends State<ContactPage> {
     );
   }
 
-  void showPopUpMenu(BuildContext context, Offset position) {
+  void showPopUpMenu(BuildContext context, Offset position, Contact data) {
     //menu display position
     final RenderBox overlay =
         Overlay.of(context)!.context.findRenderObject() as RenderBox;
@@ -166,15 +168,63 @@ class _ContactPageState extends State<ContactPage> {
       elevation: 8.0,
     ).then((value) {
       if (value != null) {
-        handleMenuItemSelection(value);
+        handleMenuItemSelection(value, data);
       }
     });
   }
 
-  void handleMenuItemSelection(int value) {
+  void handleMenuItemSelection(int value, Contact data) {
     switch (value) {
       case 1:
-        print('Option 1 selected');
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                backgroundColor: AppTheme.BG_COLOR,
+                title: const BaseText(
+                  "Delete Contact",
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+                content: RichText(
+                  text: TextSpan(
+                    text: 'Do you want to delete this contact - ',
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: data.name,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                      const TextSpan(text: ' ?'),
+                    ],
+                  ),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const BaseText(
+                      'Cancel',
+                      color: AppTheme.HINT,
+                      fontSize: 16,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      deleteViewModel.deleteContact(data);
+                    },
+                    child: const BaseText(
+                      'Delete',
+                      color: AppTheme.RED,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              );
+            });
         break;
       default:
         break;
