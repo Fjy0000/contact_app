@@ -1,3 +1,4 @@
+import 'package:app2/utils/image_utils.dart';
 import 'package:flutter/material.dart';
 
 import 'base_text.dart';
@@ -5,17 +6,26 @@ import 'base_text.dart';
 class UserAvatar extends StatelessWidget {
   UserAvatar({
     this.name,
+    this.height,
+    this.width,
+    this.imagePath,
+    this.color,
+    this.fontSize,
     Key? key,
   }) : super(key: key);
 
   String? imagePath;
   String? name;
+  double? height;
+  double? width;
+  double? fontSize;
+  Color? color;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
-      width: 100,
+      height: height,
+      width: width,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.centerLeft,
@@ -27,10 +37,12 @@ class UserAvatar extends StatelessWidget {
         ),
         shape: BoxShape.circle,
       ),
-      child: Align(
-        alignment: AlignmentDirectional.center,
-        child: BaseText(getAlphabet(name ?? ''),
-            color: const Color.fromRGBO(244, 238, 255, 1), fontSize: 30),
+      child: Container(
+        margin: const EdgeInsets.all(20),
+        child: imagePath != null
+            ? imageAsset(res: imagePath)
+            : BaseText(getAlphabet(name ?? ''),
+                color: color ?? Colors.white, fontSize: fontSize),
       ),
     );
   }

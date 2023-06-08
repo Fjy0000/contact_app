@@ -1,11 +1,16 @@
 import 'package:app2/model/body/contact_body.dart';
 import 'package:app2/modules/contact/viewModel/create_contact_viewmodel.dart';
+import 'package:app2/utils/constants/constant.dart';
 import 'package:app2/utils/extension.dart';
+import 'package:app2/utils/permission_util.dart';
 import 'package:app2/widgets/base_app_bar.dart';
 import 'package:app2/widgets/base_button.dart';
 import 'package:app2/widgets/base_scaffold.dart';
+import 'package:app2/widgets/base_text.dart';
 import 'package:app2/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class AddContactPage extends StatefulWidget {
   const AddContactPage({Key? key}) : super(key: key);
@@ -21,8 +26,43 @@ class _AddContactPageState extends State<AddContactPage> {
   TextEditingController addressController = TextEditingController();
   TextEditingController noteController = TextEditingController();
   TextEditingController organisationController = TextEditingController();
+  TextEditingController avatarController = TextEditingController();
 
   final viewModel = CreateContactViewModel();
+
+  // XFile? image;
+  // final ImagePicker picker = ImagePicker();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+  //
+  // Future<void> getSource(String type) async {
+  //   if (type == 'camera') {
+  //     requestPermission([Permission.camera],
+  //         customMsg: 'permission_required_camera'.tr, onSuccess: (value) {
+  //       if (value.isGranted) {
+  //         getPhoto(ImageSource.camera);
+  //       }
+  //     });
+  //   } else if (type == 'gallery') {
+  //     requestPermission([Permission.storage],
+  //         customMsg: 'permission_required_camera'.tr, onSuccess: (value) {
+  //       if (value.isGranted) {
+  //         getPhoto(ImageSource.gallery);
+  //       }
+  //     });
+  //   }
+  // }
+  //
+  // void getPhoto(ImageSource source) async {
+  //   final pickImage = await picker.pickImage(source: source);
+  //   setState(() {
+  //     image = pickImage;
+  //     Navigator.pop(context);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +76,46 @@ class _AddContactPageState extends State<AddContactPage> {
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const SizedBox(height: 35),
+                      Stack(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(20),
+                            decoration: const BoxDecoration(
+                                shape: BoxShape.circle, color: Colors.purple),
+                            child: const Icon(
+                              Icons.person,
+                              size: 35,
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 4,
+                            right: 4,
+                            child: GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: ((builder) => bottomSheet()),
+                                );
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white.withOpacity(0.6),
+                                ),
+                                child: const Icon(
+                                  Icons.add,
+                                  size: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
                       CustomTextField(
                         label: "Name",
                         controller: nameController,
@@ -111,6 +189,67 @@ class _AddContactPageState extends State<AddContactPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget bottomSheet() {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.25,
+      padding: const EdgeInsets.all(15.0),
+      child: Column(
+        children: [
+          const BaseText(
+            'Choose Profile Photo',
+            fontSize: 24.0,
+            color: AppTheme.BLACK24,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Column(
+              children: [
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    //getSource('camera');
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(
+                        Icons.camera,
+                      ),
+                      BaseText(
+                        'Camera',
+                        fontSize: 18.0,
+                        color: AppTheme.BLACK24,
+                      ),
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    //getSource('gallery');
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.photo,
+                      ),
+                      BaseText(
+                        'Gallery',
+                        fontSize: 18.0,
+                        color: AppTheme.BLACK24,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

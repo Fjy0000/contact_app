@@ -29,7 +29,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
   initBottomBarItem() {
     bottomBarItem.clear();
     bottomBarItem.addAll([
-      BaseMenuItem(label: "Favourite", icon: "star_btn.svg", onTap: () {}),
+      //BaseMenuItem(label: "Favourite", icon: "star_btn.svg", onTap: () {}),
       BaseMenuItem(
           label: "Edit",
           icon: "edit_btn.svg",
@@ -39,7 +39,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
               arguments: ContactArgument(arguments.contact),
             );
           }),
-      BaseMenuItem(label: "Menu", icon: "menu_btn.svg", onTap: () {})
+      //BaseMenuItem(label: "Menu", icon: "menu_btn.svg", onTap: () {})
     ]);
   }
 
@@ -156,7 +156,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
     return Row(
       children: [
         BaseText(
-          "${label} :",
+          "$label :",
           fontSize: 14,
           fontWeight: FontWeight.w500,
         ),
@@ -224,7 +224,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
 
   Widget buildItem(BaseMenuItem item) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: item.onTap,
@@ -235,6 +235,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                 width: 20,
                 height: 20,
                 color: AppTheme.WHITE_COLOR),
+            const SizedBox(height: 5),
             BaseText(item.label),
           ],
         ),

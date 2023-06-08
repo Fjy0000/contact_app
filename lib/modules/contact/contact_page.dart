@@ -14,6 +14,7 @@ import 'package:app2/widgets/base_app_bar.dart';
 import 'package:app2/widgets/base_scaffold.dart';
 import 'package:app2/widgets/base_state_ui.dart';
 import 'package:app2/widgets/base_text.dart';
+import 'package:app2/widgets/user_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -122,17 +123,10 @@ class _ContactPageState extends State<ContactPage> {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Row(
           children: [
-            Container(
-              padding: const EdgeInsets.all(20),
-              margin: const EdgeInsets.only(right: 20),
-              decoration: const BoxDecoration(
-                  shape: BoxShape.circle, color: AppTheme.BLUE),
-              child: BaseText(
-                data.name?.substring(0, 1).toUpperCase(),
-                fontSize: 18,
-                color: AppTheme.BLACK24,
-              ),
+            UserAvatar(
+              name: data.name,fontSize: 25,
             ),
+            const SizedBox(width: 20),
             BaseText(data.name, fontSize: 18),
           ],
         ),
