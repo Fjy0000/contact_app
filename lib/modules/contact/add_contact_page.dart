@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:app2/model/body/contact_body.dart';
 import 'package:app2/modules/contact/viewModel/create_contact_viewmodel.dart';
 import 'package:app2/utils/constants/constant.dart';
 import 'package:app2/utils/extension.dart';
+import 'package:app2/utils/image_utils.dart';
 import 'package:app2/utils/permission_util.dart';
 import 'package:app2/widgets/base_app_bar.dart';
 import 'package:app2/widgets/base_button.dart';
@@ -27,7 +30,8 @@ class _AddContactPageState extends State<AddContactPage> {
   TextEditingController addressController = TextEditingController();
   TextEditingController noteController = TextEditingController();
   TextEditingController organisationController = TextEditingController();
-  TextEditingController avatarController = TextEditingController();
+
+  String? avatarController;
 
   final viewModel = CreateContactViewModel();
 
@@ -61,6 +65,9 @@ class _AddContactPageState extends State<AddContactPage> {
     final pickImage = await picker.pickImage(source: source);
     setState(() {
       image = pickImage;
+
+      avatarController = image?.path ?? "";
+
       Navigator.pop(context);
     });
   }
@@ -82,13 +89,22 @@ class _AddContactPageState extends State<AddContactPage> {
                       const SizedBox(height: 35),
                       Stack(
                         children: [
-                          Container(
-                            padding: const EdgeInsets.all(20),
-                            decoration: const BoxDecoration(
-                                shape: BoxShape.circle, color: Colors.purple),
-                            child: const Icon(
-                              Icons.person,
-                              size: 35,
+                          ClipOval(
+                            clipBehavior: Clip.hardEdge,
+                            child: Container(
+                              width: 100,
+                              height: 100,
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle, color: Colors.purple),
+                              child: image != null
+                                  ? Image.file(
+                                      File(image?.path ?? ''),
+                                      fit: BoxFit.fill,
+                                    )
+                                  : const Icon(
+                                      Icons.person,
+                                      size: 35,
+                                    ),
                             ),
                           ),
                           Positioned(
@@ -184,6 +200,7 @@ class _AddContactPageState extends State<AddContactPage> {
                         organisation: organisationController.text,
                         address: addressController.text,
                         note: noteController.text,
+                        imagePath: avatarController,
                       ),
                     );
                   }

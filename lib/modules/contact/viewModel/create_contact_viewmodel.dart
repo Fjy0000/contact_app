@@ -19,6 +19,7 @@ class CreateContactViewModel {
       email: contact.email,
       address: contact.address,
       note: contact.note,
+      imagePath: contact.imagePath,
     );
 
     final json = saveData.toJson();

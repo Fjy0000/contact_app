@@ -6,6 +6,7 @@ class Contact {
   String? email;
   String? address;
   String? note;
+  String? imagePath;
 
   Contact({
     this.id,
@@ -15,6 +16,7 @@ class Contact {
     this.email,
     this.address,
     this.note,
+    this.imagePath,
   });
 
   Map<String, dynamic> toJson() => {
@@ -25,5 +27,6 @@ class Contact {
         'email': email,
         'address': address,
         'note': note,
+        'imagePath': imagePath,
       };
 }
