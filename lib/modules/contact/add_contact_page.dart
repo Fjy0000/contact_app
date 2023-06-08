@@ -10,6 +10,7 @@ import 'package:app2/widgets/base_text.dart';
 import 'package:app2/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class AddContactPage extends StatefulWidget {
@@ -30,39 +31,39 @@ class _AddContactPageState extends State<AddContactPage> {
 
   final viewModel = CreateContactViewModel();
 
-  // XFile? image;
-  // final ImagePicker picker = ImagePicker();
+  XFile? image;
+  final ImagePicker picker = ImagePicker();
 
   @override
   void initState() {
     super.initState();
   }
-  //
-  // Future<void> getSource(String type) async {
-  //   if (type == 'camera') {
-  //     requestPermission([Permission.camera],
-  //         customMsg: 'permission_required_camera'.tr, onSuccess: (value) {
-  //       if (value.isGranted) {
-  //         getPhoto(ImageSource.camera);
-  //       }
-  //     });
-  //   } else if (type == 'gallery') {
-  //     requestPermission([Permission.storage],
-  //         customMsg: 'permission_required_camera'.tr, onSuccess: (value) {
-  //       if (value.isGranted) {
-  //         getPhoto(ImageSource.gallery);
-  //       }
-  //     });
-  //   }
-  // }
-  //
-  // void getPhoto(ImageSource source) async {
-  //   final pickImage = await picker.pickImage(source: source);
-  //   setState(() {
-  //     image = pickImage;
-  //     Navigator.pop(context);
-  //   });
-  // }
+
+  Future<void> getSource(String type) async {
+    if (type == 'camera') {
+      requestPermission([Permission.camera],
+          customMsg: 'permission_required_camera'.tr, onSuccess: (value) {
+        if (value.isGranted) {
+          getPhoto(ImageSource.camera);
+        }
+      });
+    } else if (type == 'gallery') {
+      requestPermission([Permission.storage],
+          customMsg: 'permission_required_camera'.tr, onSuccess: (value) {
+        if (value.isGranted) {
+          getPhoto(ImageSource.gallery);
+        }
+      });
+    }
+  }
+
+  void getPhoto(ImageSource source) async {
+    final pickImage = await picker.pickImage(source: source);
+    setState(() {
+      image = pickImage;
+      Navigator.pop(context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +100,8 @@ class _AddContactPageState extends State<AddContactPage> {
                                 showModalBottomSheet(
                                   context: context,
                                   builder: ((builder) => bottomSheet()),
+                                  backgroundColor: Colors.transparent,
+                                  barrierColor: Colors.transparent,
                                 );
                               },
                               child: Container(
@@ -171,7 +174,7 @@ class _AddContactPageState extends State<AddContactPage> {
                 width: double.infinity,
                 onPressed: () {
                   if (contactNoController.text.isEmpty) {
-                    showToast('Required fill up contact no');
+                    showToast('Required fill up CONTACT NO');
                   } else {
                     viewModel.saveContact(
                       Contact(
@@ -195,59 +198,42 @@ class _AddContactPageState extends State<AddContactPage> {
 
   Widget bottomSheet() {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.25,
+      height: MediaQuery.of(context).size.height * 0.30,
       padding: const EdgeInsets.all(15.0),
+      decoration: const BoxDecoration(
+        color: Color(0xff6750a4),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const BaseText(
             'Choose Profile Photo',
-            fontSize: 24.0,
+            fontSize: 24,
             color: AppTheme.BLACK24,
           ),
-          Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: Column(
-              children: [
-                GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    //getSource('camera');
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(
-                        Icons.camera,
-                      ),
-                      BaseText(
-                        'Camera',
-                        fontSize: 18.0,
-                        color: AppTheme.BLACK24,
-                      ),
-                    ],
-                  ),
-                ),
-                GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    //getSource('gallery');
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.photo,
-                      ),
-                      BaseText(
-                        'Gallery',
-                        fontSize: 18.0,
-                        color: AppTheme.BLACK24,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+          const SizedBox(height: 40),
+          BaseButton(
+            "Camera",
+            onPressed: () {
+              getSource('camera');
+            },
+            textColor: AppTheme.BLACK24,
+            color: Colors.white.withOpacity(0.4),
+            margin: const EdgeInsets.symmetric(horizontal: 60),
+          ),
+          const SizedBox(height: 15),
+          BaseButton(
+            "Gallery",
+            onPressed: () {
+              getSource('gallery');
+            },
+            textColor: AppTheme.BLACK24,
+            color: Colors.white.withOpacity(0.4),
+            margin: const EdgeInsets.symmetric(horizontal: 60),
           ),
         ],
       ),
