@@ -65,6 +65,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
 
   @override
   void dispose() {
+    subscription?.cancel();
     super.dispose();
   }
 

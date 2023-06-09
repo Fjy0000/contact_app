@@ -9,9 +9,7 @@ class ReadContactViewModel extends BaseViewModel {
   Future<void> getData() async {
     appState.value = AppState.Loading;
 
-    QuerySnapshot snapshot =
-        await FirebaseFirestore.instance.collection('contact').get();
-
+    QuerySnapshot snapshot = await collectionReference.get();
     contactList.clear();
     for (var document in snapshot.docs) {
       var data = document.data() as Map<String, dynamic>;
@@ -28,7 +26,6 @@ class ReadContactViewModel extends BaseViewModel {
       );
 
       contactList.add(contact);
-
     }
     if (contactList.isEmpty) {
       appState.value = AppState.Empty;
