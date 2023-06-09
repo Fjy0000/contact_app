@@ -11,6 +11,7 @@ import 'package:app2/widgets/base_button.dart';
 import 'package:app2/widgets/base_scaffold.dart';
 import 'package:app2/widgets/base_text.dart';
 import 'package:app2/widgets/custom_textfield.dart';
+import 'package:app2/widgets/user_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -31,10 +32,9 @@ class _AddContactPageState extends State<AddContactPage> {
   TextEditingController noteController = TextEditingController();
   TextEditingController organisationController = TextEditingController();
 
-  String? avatarController;
-
   final viewModel = CreateContactViewModel();
 
+  String? avatarController;
   XFile? image;
   final ImagePicker picker = ImagePicker();
 
@@ -89,27 +89,10 @@ class _AddContactPageState extends State<AddContactPage> {
                       const SizedBox(height: 35),
                       Stack(
                         children: [
-                          ClipOval(
-                            clipBehavior: Clip.hardEdge,
-                            child: Container(
-                              width: 100,
-                              height: 100,
-                              decoration: const BoxDecoration(
-                                  shape: BoxShape.circle, color: Colors.purple),
-                              child: image != null
-                                  ? Image.file(
-                                      File(image?.path ?? ''),
-                                      fit: BoxFit.fill,
-                                    )
-                                  : const Icon(
-                                      Icons.person,
-                                      size: 35,
-                                    ),
-                            ),
-                          ),
+                          UserAvatar(imagePath: image?.path),
                           Positioned(
-                            bottom: 4,
-                            right: 4,
+                            bottom: 5,
+                            right: 5,
                             child: GestureDetector(
                               behavior: HitTestBehavior.opaque,
                               onTap: () {
@@ -218,7 +201,7 @@ class _AddContactPageState extends State<AddContactPage> {
       height: MediaQuery.of(context).size.height * 0.30,
       padding: const EdgeInsets.all(15.0),
       decoration: const BoxDecoration(
-        color: Color(0xff6750a4),
+        color: Color(0xff282d3f),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
@@ -230,7 +213,6 @@ class _AddContactPageState extends State<AddContactPage> {
           const BaseText(
             'Choose Profile Photo',
             fontSize: 24,
-            color: AppTheme.BLACK24,
           ),
           const SizedBox(height: 40),
           BaseButton(
@@ -238,9 +220,8 @@ class _AddContactPageState extends State<AddContactPage> {
             onPressed: () {
               getSource('camera');
             },
-            textColor: AppTheme.BLACK24,
-            color: Colors.white.withOpacity(0.4),
-            margin: const EdgeInsets.symmetric(horizontal: 60),
+            color: Color(0x33ffffff),
+            margin: const EdgeInsets.symmetric(horizontal: 40),
           ),
           const SizedBox(height: 15),
           BaseButton(
@@ -248,9 +229,8 @@ class _AddContactPageState extends State<AddContactPage> {
             onPressed: () {
               getSource('gallery');
             },
-            textColor: AppTheme.BLACK24,
-            color: Colors.white.withOpacity(0.4),
-            margin: const EdgeInsets.symmetric(horizontal: 60),
+            color: Color(0x33ffffff),
+            margin: const EdgeInsets.symmetric(horizontal: 40),
           ),
         ],
       ),

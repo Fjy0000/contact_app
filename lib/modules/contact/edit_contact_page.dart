@@ -1,12 +1,17 @@
 import 'package:app2/model/body/contact_body.dart';
 import 'package:app2/modules/contact/viewModel/edit_contact_viewmodel.dart';
 import 'package:app2/utils/extension.dart';
+import 'package:app2/utils/permission_util.dart';
 import 'package:app2/widgets/base_app_bar.dart';
 import 'package:app2/widgets/base_button.dart';
 import 'package:app2/widgets/base_scaffold.dart';
+import 'package:app2/widgets/base_text.dart';
 import 'package:app2/widgets/custom_textfield.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:app2/widgets/user_avatar.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'argument/contact_details_argument.dart';
 
@@ -29,6 +34,39 @@ class _EditContactPageState extends State<EditContactPage> {
 
   final viewModel = EditContactViewModel();
 
+  String? avatarController;
+  XFile? image;
+  final ImagePicker picker = ImagePicker();
+
+  Future<void> getSource(String type) async {
+    if (type == 'camera') {
+      requestPermission([Permission.camera],
+          customMsg: 'permission_required_camera'.tr, onSuccess: (value) {
+        if (value.isGranted) {
+          getPhoto(ImageSource.camera);
+        }
+      });
+    } else if (type == 'gallery') {
+      requestPermission([Permission.storage],
+          customMsg: 'permission_required_camera'.tr, onSuccess: (value) {
+        if (value.isGranted) {
+          getPhoto(ImageSource.gallery);
+        }
+      });
+    }
+  }
+
+  void getPhoto(ImageSource source) async {
+    final pickImage = await picker.pickImage(source: source);
+    setState(() {
+      image = pickImage;
+
+      avatarController = image?.path ?? "";
+
+      Navigator.pop(context);
+    });
+  }
+
   @override
   void initState() {
     nameController.text = arguments.contact?.name ?? "";
@@ -37,6 +75,7 @@ class _EditContactPageState extends State<EditContactPage> {
     organisationController.text = arguments.contact?.organisation ?? "";
     addressController.text = arguments.contact?.address ?? "";
     noteController.text = arguments.contact?.note ?? "";
+    avatarController = arguments.contact?.imagePath ?? "";
 
     super.initState();
   }
@@ -60,6 +99,40 @@ class _EditContactPageState extends State<EditContactPage> {
                   child: Column(
                     children: [
                       const SizedBox(height: 35),
+                      Stack(
+                        children: [
+                          UserAvatar(
+                            imagePath: avatarController,
+                            name: nameController.text,
+                          ),
+                          Positioned(
+                            bottom: 5,
+                            right: 5,
+                            child: GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: ((builder) => bottomSheet()),
+                                  backgroundColor: Colors.transparent,
+                                  barrierColor: Colors.transparent,
+                                );
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white.withOpacity(0.6),
+                                ),
+                                child: const Icon(
+                                  Icons.add,
+                                  size: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
                       CustomTextField(
                         label: "Name",
                         controller: nameController,
@@ -119,13 +192,14 @@ class _EditContactPageState extends State<EditContactPage> {
                   } else {
                     viewModel.editContact(
                       Contact(
+                        id: arguments.contact?.id,
                         name: nameController.text,
                         contactNo: contactNoController.text,
                         email: emailController.text,
                         organisation: organisationController.text,
                         address: addressController.text,
                         note: noteController.text,
-                        id: arguments.contact?.id,
+                        imagePath: avatarController,
                       ),
                     );
                   }
@@ -134,6 +208,47 @@ class _EditContactPageState extends State<EditContactPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget bottomSheet() {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.30,
+      padding: const EdgeInsets.all(15.0),
+      decoration: const BoxDecoration(
+        color: Color(0xff282d3f),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const BaseText(
+            'Choose Profile Photo',
+            fontSize: 24,
+          ),
+          const SizedBox(height: 40),
+          BaseButton(
+            "Camera",
+            onPressed: () {
+              getSource('camera');
+            },
+            color: Color(0x33ffffff),
+            margin: const EdgeInsets.symmetric(horizontal: 40),
+          ),
+          const SizedBox(height: 15),
+          BaseButton(
+            "Gallery",
+            onPressed: () {
+              getSource('gallery');
+            },
+            color: Color(0x33ffffff),
+            margin: const EdgeInsets.symmetric(horizontal: 40),
+          ),
+        ],
       ),
     );
   }

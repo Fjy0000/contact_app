@@ -125,7 +125,11 @@ class _ContactPageState extends State<ContactPage> {
         child: Row(
           children: [
             UserAvatar(
-              name: data.name,fontSize: 25,
+              width: 60,
+              height: 60,
+              imagePath: data.imagePath,
+              name: data.name,
+              fontSize: 25,
             ),
             const SizedBox(width: 20),
             BaseText(data.name, fontSize: 18),

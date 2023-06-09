@@ -1,9 +1,18 @@
+import 'dart:io';
+
 import 'package:app2/utils/image_utils.dart';
 import 'package:flutter/material.dart';
 
 import 'base_text.dart';
 
 class UserAvatar extends StatelessWidget {
+  String? imagePath;
+  String? name;
+  double? height;
+  double? width;
+  double? fontSize;
+  Color? color;
+
   UserAvatar({
     this.name,
     this.height,
@@ -14,37 +23,42 @@ class UserAvatar extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  String? imagePath;
-  String? name;
-  double? height;
-  double? width;
-  double? fontSize;
-  Color? color;
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      width: width,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          colors: [
-            Color.fromRGBO(0, 74, 173, 1),
-            Color.fromRGBO(26, 49, 131, 1),
-          ],
-        ),
-        shape: BoxShape.circle,
-      ),
+    return ClipOval(
+      clipBehavior: Clip.hardEdge,
       child: Container(
-        margin: const EdgeInsets.all(20),
+        height: height ?? 100,
+        width: width ?? 100,
+        decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: LinearGradient(
+              begin: Alignment.centerRight,
+              end: Alignment.centerLeft,
+              colors: [
+                Color(0xff2575fc),
+                Color(0xff6a11cb),
+              ],
+            )),
         child: imagePath != null
-            ? imageAsset(res: imagePath)
-            : BaseText(getAlphabet(name ?? ''),
-                color: color ?? Colors.white, fontSize: fontSize),
+            ? Image.file(
+                File(imagePath ?? ''),
+                fit: BoxFit.fill,
+              )
+            : name != null
+                ? Align(
+                    alignment: Alignment.center,
+                    child: BaseText(getAlphabet(name ?? ''),
+                        color: color ?? Colors.white, fontSize: fontSize ?? 35),
+                  )
+                : const Icon(
+                    Icons.person,
+                    size: 50,
+                  ),
       ),
     );
+
+    //   ;
   }
 
   String getAlphabet(String name) {

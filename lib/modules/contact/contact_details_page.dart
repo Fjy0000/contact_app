@@ -1,10 +1,16 @@
+import 'dart:async';
+
+import 'package:app2/base/base_event_bus.dart';
+import 'package:app2/main.dart';
 import 'package:app2/model/base_menu_item.dart';
 import 'package:app2/modules/contact/argument/contact_details_argument.dart';
 import 'package:app2/utils/constants/constant.dart';
+import 'package:app2/utils/constants/enums.dart';
 import 'package:app2/utils/get_page_router.dart';
 import 'package:app2/utils/image_utils.dart';
 import 'package:app2/widgets/base_scaffold.dart';
 import 'package:app2/widgets/base_text.dart';
+import 'package:app2/widgets/user_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,12 +24,26 @@ class ContactDetailsPage extends StatefulWidget {
 class _ContactDetailsPageState extends State<ContactDetailsPage> {
   ContactArgument arguments = Get.arguments;
 
+  StreamSubscription? subscription;
+
   List<BaseMenuItem> bottomBarItem = [];
 
   @override
   void initState() {
     initBottomBarItem();
     super.initState();
+
+    subscription = eventBus?.on<BaseEventBus>().listen((event) {
+      switch (event.type) {
+        case EventBusAction.REFRESH_CONTACT:
+          setState(() {
+            arguments = Get.arguments;
+          });
+          break;
+        default:
+          break;
+      }
+    });
   }
 
   initBottomBarItem() {
@@ -85,71 +105,75 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
             ),
           ];
         },
-        body: LayoutBuilder(builder: (context, constraint) {
-          return ConstrainedBox(
-            constraints: BoxConstraints(maxHeight: constraint.minHeight),
-            child: Column(
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: SafeArea(
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 23),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                                height: MediaQuery.of(context).padding.top +
-                                    kToolbarHeight),
-                            buildRowText(
-                              "Contact No",
-                              arguments.contact?.contactNo,
-                            ),
-                            const SizedBox(height: 20),
-                            buildRowText(
-                              "Name",
-                              arguments.contact?.name,
-                            ),
-                            const SizedBox(height: 20),
-                            buildRowText(
-                              "Organisation",
-                              arguments.contact?.organisation,
-                            ),
-                            const SizedBox(height: 20),
-                            buildRowText(
-                              "Email",
-                              arguments.contact?.email,
-                            ),
-                            const SizedBox(height: 20),
-                            buildRowText(
-                              "Address",
-                              arguments.contact?.address,
-                            ),
-                            const SizedBox(height: 20),
-                            buildRowText(
-                              "Note",
-                              arguments.contact?.note,
-                            ),
-                          ],
+        body: buildBody(),
+      ),
+    );
+  }
+
+  Widget buildBody(){
+    return LayoutBuilder(builder: (context, constraint) {
+      return ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: constraint.minHeight),
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: SafeArea(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 23),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                            height: MediaQuery.of(context).padding.top +
+                                kToolbarHeight),
+                        buildRowText(
+                          "Contact No",
+                          arguments.contact?.contactNo,
                         ),
-                      ),
+                        const SizedBox(height: 20),
+                        buildRowText(
+                          "Name",
+                          arguments.contact?.name,
+                        ),
+                        const SizedBox(height: 20),
+                        buildRowText(
+                          "Organisation",
+                          arguments.contact?.organisation,
+                        ),
+                        const SizedBox(height: 20),
+                        buildRowText(
+                          "Email",
+                          arguments.contact?.email,
+                        ),
+                        const SizedBox(height: 20),
+                        buildRowText(
+                          "Address",
+                          arguments.contact?.address,
+                        ),
+                        const SizedBox(height: 20),
+                        buildRowText(
+                          "Note",
+                          arguments.contact?.note,
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                Container(
-                  decoration: const BoxDecoration(color: AppTheme.DARK_PURPLE),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      for (BaseMenuItem item in bottomBarItem) buildItem(item),
-                    ],
-                  ),
-                )
-              ],
+              ),
             ),
-          );
-        }),
-      ),
-    );
+            Container(
+              decoration: const BoxDecoration(color: AppTheme.DARK_PURPLE),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  for (BaseMenuItem item in bottomBarItem) buildItem(item),
+                ],
+              ),
+            )
+          ],
+        ),
+      );
+    });
   }
 
   Widget buildRowText(String? label, String? data) {
@@ -183,15 +207,11 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            padding: const EdgeInsets.all(30),
-            decoration: const BoxDecoration(
-                shape: BoxShape.circle, color: AppTheme.CELL_GRANDIENT_2_COLOR),
-            child: BaseText(
-              arguments.contact?.name?.substring(0, 1).toUpperCase(),
-              fontSize: 45,
-            ),
+          UserAvatar(
+            imagePath: arguments.contact?.imagePath,
+            name: arguments.contact?.name,
           ),
+          const SizedBox(height: 15),
           BaseText(
             arguments.contact?.name,
             fontSize: 18,

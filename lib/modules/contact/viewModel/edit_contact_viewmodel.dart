@@ -20,6 +20,7 @@ class EditContactViewModel {
           "email": contact.email,
           "address": contact.address,
           "note": contact.note,
+          "imagePath": contact.imagePath,
         })
         .whenComplete(() => success())
         .catchError((e) => showToast("Error updating contact $e"));

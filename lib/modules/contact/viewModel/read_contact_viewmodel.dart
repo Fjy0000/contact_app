@@ -24,11 +24,11 @@ class ReadContactViewModel extends BaseViewModel {
         email: data['email'],
         address: data['address'],
         note: data['note'],
+        imagePath: data['imagePath'],
       );
 
       contactList.add(contact);
-      // print(document.data());
-      // print('${contactList.length}');
+
     }
     if (contactList.isEmpty) {
       appState.value = AppState.Empty;
