@@ -4,16 +4,16 @@ import 'package:app2/main.dart';
 import 'package:app2/model/body/contact_body.dart';
 import 'package:app2/utils/constants/enums.dart';
 import 'package:app2/utils/extension.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 
 class DeleteContactViewModel extends BaseViewModel {
   Future<void> deleteContact(Contact contact) async {
-    final contactDoc = collectionReference.doc(contact.id);
+    final deleteDoc = collectionReference.doc(contact.id);
+    Reference deleteFile = storageReference.child("${contact.id}");
 
-    await contactDoc
-        .delete()
-        .whenComplete(() => success())
-        .catchError((e) => showToast("Error deleting contact $e"));
+    await deleteFile.delete();
+    await deleteDoc.delete().whenComplete(() => success());
   }
 
   void success() {

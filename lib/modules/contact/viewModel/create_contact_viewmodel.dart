@@ -17,7 +17,7 @@ class CreateContactViewModel extends BaseViewModel {
 
     Reference refUploadAvatarName = storageReference.child(contactDoc.id);
 
-    if (contact.imagePath != null) {
+    if (contact.imagePath != '') {
       await refUploadAvatarName.putFile(File("${contact.imagePath}"));
       avatarUrl = await refUploadAvatarName.getDownloadURL();
     }
@@ -34,10 +34,7 @@ class CreateContactViewModel extends BaseViewModel {
     );
 
     final json = saveData.toJson();
-    await contactDoc
-        .set(json)
-        .whenComplete(() => success())
-        .catchError((e) => showToast("Error adding contact $e"));
+    await contactDoc.set(json).whenComplete(() => success());
   }
 
   void success() {

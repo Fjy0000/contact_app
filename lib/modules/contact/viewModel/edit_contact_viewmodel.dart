@@ -17,23 +17,20 @@ class EditContactViewModel extends BaseViewModel {
 
     Reference refUploadAvatarName = storageReference.child("${contact.id}");
 
-    if (contact.imagePath != null) {
+    if (contact.imagePath != '') {
       refUploadAvatarName.putFile(File("${contact.imagePath}"));
       avatarUrl = await refUploadAvatarName.getDownloadURL();
     }
 
-    await contactDoc
-        .update({
-          "name": contact.name,
-          "contactNo": contact.contactNo,
-          "organisation": contact.organisation,
-          "email": contact.email,
-          "address": contact.address,
-          "note": contact.note,
-          "imagePath": avatarUrl,
-        })
-        .whenComplete(() => success())
-        .catchError((e) => showToast("Error updating contact $e"));
+    await contactDoc.update({
+      "name": contact.name,
+      "contactNo": contact.contactNo,
+      "organisation": contact.organisation,
+      "email": contact.email,
+      "address": contact.address,
+      "note": contact.note,
+      "imagePath": avatarUrl,
+    }).whenComplete(() => success());
   }
 
   void success() {

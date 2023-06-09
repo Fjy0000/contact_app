@@ -26,8 +26,7 @@ class ReadContactViewModel extends BaseViewModel {
       );
 
       contactList.add(contact);
-    }
-    if (contactList.isEmpty) {
+    }if (contactList.isEmpty) {
       appState.value = AppState.Empty;
     } else {
       appState.value = AppState.Success;
