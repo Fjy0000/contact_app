@@ -6,8 +6,8 @@ import 'package:app2/widgets/base_app_bar.dart';
 import 'package:app2/widgets/base_button.dart';
 import 'package:app2/widgets/base_scaffold.dart';
 import 'package:app2/widgets/base_text.dart';
+import 'package:app2/widgets/custom_avatar.dart';
 import 'package:app2/widgets/custom_textfield.dart';
-import 'package:app2/widgets/user_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -38,6 +38,8 @@ class _EditContactPageState extends State<EditContactPage> {
   XFile? image;
   final ImagePicker picker = ImagePicker();
 
+  bool? isImageUrl = true;
+
   Future<void> getSource(String type) async {
     if (type == 'camera') {
       requestPermission([Permission.camera],
@@ -61,8 +63,12 @@ class _EditContactPageState extends State<EditContactPage> {
     setState(() {
       image = pickImage;
 
-      avatarController = image?.path ?? "";
-
+      avatarController = image?.path ?? arguments.contact?.imagePath;
+      if (image?.path.isNotEmpty == true) {
+        isImageUrl = false;
+      } else {
+        isImageUrl = true;
+      }
       Navigator.pop(context);
     });
   }
@@ -101,9 +107,9 @@ class _EditContactPageState extends State<EditContactPage> {
                       const SizedBox(height: 35),
                       Stack(
                         children: [
-                          UserAvatar(
+                          CustomAvatar(
                             imagePath: avatarController,
-                            name: nameController.text,
+                            isImageUrl: isImageUrl,
                           ),
                           Positioned(
                             bottom: 5,
