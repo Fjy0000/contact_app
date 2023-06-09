@@ -1,17 +1,13 @@
-import 'dart:io';
-
 import 'package:app2/model/body/contact_body.dart';
 import 'package:app2/modules/contact/viewModel/create_contact_viewmodel.dart';
-import 'package:app2/utils/constants/constant.dart';
 import 'package:app2/utils/extension.dart';
-import 'package:app2/utils/image_utils.dart';
 import 'package:app2/utils/permission_util.dart';
 import 'package:app2/widgets/base_app_bar.dart';
 import 'package:app2/widgets/base_button.dart';
 import 'package:app2/widgets/base_scaffold.dart';
 import 'package:app2/widgets/base_text.dart';
+import 'package:app2/widgets/custom_avatar.dart';
 import 'package:app2/widgets/custom_textfield.dart';
-import 'package:app2/widgets/user_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -34,7 +30,7 @@ class _AddContactPageState extends State<AddContactPage> {
 
   final viewModel = CreateContactViewModel();
 
-  String? avatarController;
+  String avatarController = '';
   XFile? image;
   final ImagePicker picker = ImagePicker();
 
@@ -65,9 +61,7 @@ class _AddContactPageState extends State<AddContactPage> {
     final pickImage = await picker.pickImage(source: source);
     setState(() {
       image = pickImage;
-
-      avatarController = image?.path ?? "";
-
+      avatarController = image?.path ?? '';
       Navigator.pop(context);
     });
   }
@@ -89,7 +83,9 @@ class _AddContactPageState extends State<AddContactPage> {
                       const SizedBox(height: 35),
                       Stack(
                         children: [
-                          UserAvatar(imagePath: image?.path),
+                          CustomAvatar(
+                            imagePath: avatarController,
+                          ),
                           Positioned(
                             bottom: 5,
                             right: 5,

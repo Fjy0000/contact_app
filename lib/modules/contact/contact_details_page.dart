@@ -10,7 +10,7 @@ import 'package:app2/utils/get_page_router.dart';
 import 'package:app2/utils/image_utils.dart';
 import 'package:app2/widgets/base_scaffold.dart';
 import 'package:app2/widgets/base_text.dart';
-import 'package:app2/widgets/user_avatar.dart';
+import 'package:app2/widgets/base_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -207,7 +207,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          UserAvatar(
+          BaseAvatar(
             imagePath: arguments.contact?.imagePath,
             name: arguments.contact?.name,
           ),

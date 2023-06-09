@@ -1,16 +1,26 @@
+import 'dart:io';
+
 import 'package:app2/base/base_event_bus.dart';
+import 'package:app2/base/base_viewmodel.dart';
 import 'package:app2/main.dart';
 import 'package:app2/model/body/contact_body.dart';
 import 'package:app2/utils/constants/enums.dart';
 import 'package:app2/utils/extension.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 
-class EditContactViewModel {
+class EditContactViewModel extends BaseViewModel {
   Future<void> editContact(Contact contact) async {
-    //save data to firebase
-    final contactDoc =
-        FirebaseFirestore.instance.collection("contact").doc(contact.id);
+    String avatarUrl = '';
+
+    final contactDoc = collectionReference.doc(contact.id);
+
+    Reference refUploadAvatarName = storageReference.child("${contact.id}");
+
+    if (contact.imagePath != null) {
+      refUploadAvatarName.putFile(File("${contact.imagePath}"));
+      avatarUrl = await refUploadAvatarName.getDownloadURL();
+    }
 
     await contactDoc
         .update({
@@ -20,7 +30,7 @@ class EditContactViewModel {
           "email": contact.email,
           "address": contact.address,
           "note": contact.note,
-          "imagePath": contact.imagePath,
+          "imagePath": avatarUrl,
         })
         .whenComplete(() => success())
         .catchError((e) => showToast("Error updating contact $e"));
