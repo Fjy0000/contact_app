@@ -36,9 +36,6 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
     subscription = eventBus?.on<BaseEventBus>().listen((event) {
       switch (event.type) {
         case EventBusAction.REFRESH_CONTACT:
-          setState(() {
-            arguments = Get.arguments;
-          });
           break;
         default:
           break;

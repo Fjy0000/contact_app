@@ -34,7 +34,8 @@ class _EditContactPageState extends State<EditContactPage> {
 
   final viewModel = EditContactViewModel();
 
-  String? avatarController;
+  String? avatarPath;
+
   XFile? image;
   final ImagePicker picker = ImagePicker();
 
@@ -63,7 +64,7 @@ class _EditContactPageState extends State<EditContactPage> {
     setState(() {
       image = pickImage;
 
-      avatarController = image?.path ?? arguments.contact?.imagePath;
+      avatarPath = image?.path ?? arguments.contact?.imagePath;
       if (image?.path.isNotEmpty == true) {
         isImageUrl = false;
       } else {
@@ -81,7 +82,7 @@ class _EditContactPageState extends State<EditContactPage> {
     organisationController.text = arguments.contact?.organisation ?? "";
     addressController.text = arguments.contact?.address ?? "";
     noteController.text = arguments.contact?.note ?? "";
-    avatarController = arguments.contact?.imagePath ?? "";
+    avatarPath = arguments.contact?.imagePath ?? "";
 
     super.initState();
   }
@@ -108,7 +109,7 @@ class _EditContactPageState extends State<EditContactPage> {
                       Stack(
                         children: [
                           CustomAvatar(
-                            imagePath: avatarController,
+                            imagePath: avatarPath,
                             isImageUrl: isImageUrl,
                           ),
                           Positioned(
@@ -205,7 +206,7 @@ class _EditContactPageState extends State<EditContactPage> {
                         organisation: organisationController.text,
                         address: addressController.text,
                         note: noteController.text,
-                        imagePath: avatarController,
+                        imagePath: avatarPath,
                       ),
                     );
                   }

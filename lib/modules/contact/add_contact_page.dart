@@ -30,7 +30,8 @@ class _AddContactPageState extends State<AddContactPage> {
 
   final viewModel = CreateContactViewModel();
 
-  String avatarController = '';
+  String avatarPath = '';
+
   XFile? image;
   final ImagePicker picker = ImagePicker();
 
@@ -61,7 +62,7 @@ class _AddContactPageState extends State<AddContactPage> {
     final pickImage = await picker.pickImage(source: source);
     setState(() {
       image = pickImage;
-      avatarController = image?.path ?? '';
+      avatarPath = image?.path ?? '';
       Navigator.pop(context);
     });
   }
@@ -84,7 +85,7 @@ class _AddContactPageState extends State<AddContactPage> {
                       Stack(
                         children: [
                           CustomAvatar(
-                            imagePath: avatarController,
+                            imagePath: avatarPath,
                           ),
                           Positioned(
                             bottom: 5,
@@ -179,7 +180,7 @@ class _AddContactPageState extends State<AddContactPage> {
                         organisation: organisationController.text,
                         address: addressController.text,
                         note: noteController.text,
-                        imagePath: avatarController,
+                        imagePath: avatarPath,
                       ),
                     );
                   }
