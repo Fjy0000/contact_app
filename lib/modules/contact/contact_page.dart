@@ -132,7 +132,9 @@ class _ContactPageState extends State<ContactPage> {
               fontSize: 25,
             ),
             const SizedBox(width: 20),
-            BaseText(data.name, fontSize: 18),
+            data.name != ''
+                ? BaseText(data.name, fontSize: 18)
+                : BaseText(data.contactNo, fontSize: 18),
           ],
         ),
       ),
