@@ -88,7 +88,10 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                 forceElevated: innerBoxIsScrolled,
                 actions: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(GetPageRoutes.contactQr,
+                          arguments: ContactArgument(arguments.contact));
+                    },
                     icon: const Icon(
                       Icons.qr_code,
                       color: AppTheme.WHITE_COLOR,
@@ -108,7 +111,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
     );
   }
 
-  Widget buildBody(){
+  Widget buildBody() {
     return LayoutBuilder(builder: (context, constraint) {
       return ConstrainedBox(
         constraints: BoxConstraints(maxHeight: constraint.minHeight),

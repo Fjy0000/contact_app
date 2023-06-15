@@ -13,7 +13,7 @@ Widget imageAsset(
     double? width,
     double? height,
     BoxFit? fit,
-    String placeholder = 'placeholder_avatar.svg',
+    String placeholder = 'image_not_found.png',
     String placeHolderError = 'image_not_found.png',
     Color? color}) {
   if (file != null) {

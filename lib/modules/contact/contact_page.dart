@@ -165,12 +165,12 @@ class _ContactPageState extends State<ContactPage> {
       elevation: 8.0,
     ).then((value) {
       if (value != null) {
-        handleMenuItemSelection(value, data);
+        showMenuItemDialog(value, data);
       }
     });
   }
 
-  void handleMenuItemSelection(int value, Contact data) {
+  void showMenuItemDialog(int value, Contact data) {
     switch (value) {
       case 1:
         showDialog(
@@ -185,16 +185,18 @@ class _ContactPageState extends State<ContactPage> {
                 ),
                 content: RichText(
                   text: TextSpan(
-                    text: 'Do you want to delete this contact - ',
+                    text: 'Do you want to delete this contact : (',
                     children: <TextSpan>[
                       TextSpan(
-                        text: data.name,
+                        text: data.name?.isNotEmpty == true
+                            ? data.name
+                            : data.contactNo,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
                         ),
                       ),
-                      const TextSpan(text: ' ?'),
+                      const TextSpan(text: ') ?'),
                     ],
                   ),
                 ),

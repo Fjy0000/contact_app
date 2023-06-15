@@ -1,6 +1,7 @@
 import 'package:app2/modules/contact/add_contact_page.dart';
 import 'package:app2/modules/contact/contact_details_page.dart';
 import 'package:app2/modules/contact/contact_page.dart';
+import 'package:app2/modules/contact/contact_qr_page.dart';
 import 'package:app2/modules/contact/edit_contact_page.dart';
 import 'package:app2/modules/login/login_page.dart';
 import 'package:app2/splashscreen/splashscreen.dart';
@@ -14,15 +15,17 @@ class GetPageRoutes {
   static const String addContact = '/contact/add';
   static const String editContact = '/contact/edit';
   static const String contactDetails = '/contact/details';
+  static const String contactQr = '/contact/details/Qrcode';
 
   static List<GetPage> routes() {
     return [
-      GetPage(name: splashScreen, page: () => SplashScreenPage()),
-      GetPage(name: login, page: () => LoginPage()),
-      GetPage(name: contact, page: () => ContactPage()),
-      GetPage(name: addContact, page: () => AddContactPage()),
-      GetPage(name: contactDetails, page: () => ContactDetailsPage()),
-      GetPage(name: editContact, page: () => EditContactPage()),
+      GetPage(name: splashScreen, page: () => const SplashScreenPage()),
+      GetPage(name: login, page: () => const LoginPage()),
+      GetPage(name: contact, page: () => const ContactPage()),
+      GetPage(name: addContact, page: () => const AddContactPage()),
+      GetPage(name: contactDetails, page: () => const ContactDetailsPage()),
+      GetPage(name: editContact, page: () => const EditContactPage()),
+      GetPage(name: contactQr, page: () => const ContactQrPage()),
     ];
   }
 }

@@ -212,10 +212,10 @@ class CustomTextField extends StatelessWidget {
       width: double.infinity,
       decoration: decoration ??
           BoxDecoration(
-            color: Color(0x33e8e8e8),
+            color: const Color(0x33e8e8e8),
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: Color(0x33ffffff),
+              color: const Color(0x33ffffff),
               width: 1,
             ),
           ),

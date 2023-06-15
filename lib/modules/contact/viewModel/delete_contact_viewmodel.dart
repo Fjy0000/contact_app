@@ -10,15 +10,13 @@ import 'package:get/get.dart';
 class DeleteContactViewModel extends BaseViewModel {
   Future<void> deleteContact(Contact contact) async {
     final deleteDoc = collectionReference.doc(contact.id);
-    Reference deleteFile = storageReference.child("${contact.id}");
-
-    await deleteFile.delete();
-    await deleteDoc.delete().whenComplete(() => success());
-  }
-
-  void success() {
-    showToast("Successfully Delete!");
-    eventBus?.fire(BaseEventBus(EventBusAction.REFRESH_CONTACT));
-    Get.back();
+    // Reference deleteFile = storageReference.child("${contact.id}");
+    //
+    // await deleteFile.delete();
+    await deleteDoc.delete().request(onSuccess: (v) {
+      showToast("Successfully Delete!");
+      eventBus?.fire(BaseEventBus(EventBusAction.REFRESH_CONTACT));
+      Get.back();
+    });
   }
 }
