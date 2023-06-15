@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:app2/base/base_event_bus.dart';
 import 'package:app2/base/base_viewmodel.dart';
@@ -29,6 +28,7 @@ class ContactPage extends StatefulWidget {
 class _ContactPageState extends State<ContactPage> {
   final viewModel = ReadContactViewModel();
   final deleteViewModel = DeleteContactViewModel();
+
   StreamSubscription? subscription;
 
   @override
@@ -86,24 +86,20 @@ class _ContactPageState extends State<ContactPage> {
               initState();
             });
           }
-          return buildList();
-        },
-      ),
-    );
-  }
-
-  Widget buildList() {
-    return SafeArea(
-      child: ListView.separated(
-        itemCount: viewModel.contactList.length,
-        separatorBuilder: (BuildContext context, int index) =>
-            const SizedBox(height: 25),
-        itemBuilder: (BuildContext context, int index) {
-          return Column(
-            children: [
-              if (index == 0) const SizedBox(height: 10),
-              item(viewModel.contactList[index]),
-            ],
+          return SafeArea(
+            child: ListView.separated(
+              itemCount: viewModel.contactList.length,
+              separatorBuilder: (BuildContext context, int index) =>
+                  const SizedBox(height: 25),
+              itemBuilder: (BuildContext context, int index) {
+                return Column(
+                  children: [
+                    if (index == 0) const SizedBox(height: 10),
+                    item(viewModel.contactList[index]),
+                  ],
+                );
+              },
+            ),
           );
         },
       ),
@@ -111,6 +107,7 @@ class _ContactPageState extends State<ContactPage> {
   }
 
   Widget item(Contact data) {
+    print("@@@@@@@ ${data.imagePath}");
     return GestureDetector(
       onTap: () {
         Get.toNamed(GetPageRoutes.contactDetails,
@@ -127,9 +124,9 @@ class _ContactPageState extends State<ContactPage> {
             BaseAvatar(
               width: 60,
               height: 60,
+              iconPaddingAll: 15,
               imagePath: data.imagePath,
-              name: data.name,
-              fontSize: 25,
+              isImageUrl: true,
             ),
             const SizedBox(width: 20),
             data.name != ''

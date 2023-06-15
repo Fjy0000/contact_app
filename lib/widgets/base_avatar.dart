@@ -1,25 +1,22 @@
 import 'dart:io';
 import 'package:app2/utils/image_utils.dart';
 import 'package:flutter/material.dart';
-import 'base_text.dart';
 
 class BaseAvatar extends StatelessWidget {
-  String? imagePath;
-  String? name;
-  double? height;
-  double? width;
-  double? fontSize;
-  Color? color;
-
   BaseAvatar({
-    this.name,
     this.height,
     this.width,
     this.imagePath,
-    this.color,
-    this.fontSize,
+    this.isImageUrl = false,
+    this.iconPaddingAll,
     Key? key,
   }) : super(key: key);
+
+  final bool? isImageUrl;
+  final String? imagePath;
+  final double? height;
+  final double? width;
+  final double? iconPaddingAll;
 
   @override
   Widget build(BuildContext context) {
@@ -39,27 +36,20 @@ class BaseAvatar extends StatelessWidget {
             ],
           ),
         ),
-        child: imagePath != ""
+        child: imagePath != ''
             ? imageAsset(
-                imageUrl: imagePath,
-                fit: BoxFit.fill,
+                imageUrl: isImageUrl == true ? imagePath : null,
+                file: isImageUrl == false ? File("$imagePath") : null,
+                fit: BoxFit.cover,
               )
-            : Align(
-                alignment: Alignment.center,
-                child: BaseText(
-                  getAlphabet(name ?? ''),
-                  color: color ?? Colors.white,
-                  fontSize: fontSize ?? 35,
+            : Padding(
+                padding: EdgeInsets.all(iconPaddingAll ?? 25),
+                child: imageAsset(
+                  res: 'placeholder_avatar.svg',
+                  fit: BoxFit.cover,
                 ),
               ),
       ),
     );
-  }
-
-  String getAlphabet(String name) {
-    if (name.isEmpty) {
-      return "-";
-    }
-    return name[0].toUpperCase();
   }
 }

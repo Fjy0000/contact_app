@@ -3,10 +3,10 @@ import 'package:app2/modules/contact/viewModel/create_contact_viewmodel.dart';
 import 'package:app2/utils/extension.dart';
 import 'package:app2/utils/permission_util.dart';
 import 'package:app2/widgets/base_app_bar.dart';
+import 'package:app2/widgets/base_avatar.dart';
 import 'package:app2/widgets/base_button.dart';
 import 'package:app2/widgets/base_scaffold.dart';
 import 'package:app2/widgets/base_text.dart';
-import 'package:app2/widgets/custom_avatar.dart';
 import 'package:app2/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -84,7 +84,7 @@ class _AddContactPageState extends State<AddContactPage> {
                       const SizedBox(height: 35),
                       Stack(
                         children: [
-                          CustomAvatar(
+                          BaseAvatar(
                             imagePath: avatarPath,
                           ),
                           Positioned(
@@ -127,14 +127,14 @@ class _AddContactPageState extends State<AddContactPage> {
                         controller: contactNoController,
                         removeDecoration: true,
                         keyboardType: TextInputType.phone,
-                        maxLength: 20,
+                        maxLength: 15,
                       ),
                       const SizedBox(height: 20),
                       CustomTextField(
                         label: "Email",
                         controller: emailController,
                         removeDecoration: true,
-                        maxLength: 15,
+                        maxLength: 20,
                       ),
                       const SizedBox(height: 20),
                       CustomTextField(

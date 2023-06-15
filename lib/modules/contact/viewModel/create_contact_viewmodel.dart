@@ -6,7 +6,6 @@ import 'package:app2/main.dart';
 import 'package:app2/model/body/contact_body.dart';
 import 'package:app2/utils/constants/enums.dart';
 import 'package:app2/utils/extension.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 
 class CreateContactViewModel extends BaseViewModel {
@@ -15,7 +14,7 @@ class CreateContactViewModel extends BaseViewModel {
 
     final contactDoc = collectionReference.doc();
 
-    Reference refUploadAvatarName = storageReference.child(contactDoc.id);
+    final refUploadAvatarName = storageReference.child(contactDoc.id);
 
     if (contact.imagePath != '') {
       await refUploadAvatarName.putFile(File("${contact.imagePath}"));
@@ -34,12 +33,12 @@ class CreateContactViewModel extends BaseViewModel {
     );
 
     final json = saveData.toJson();
-    await contactDoc.set(json).whenComplete(() => success());
-  }
-
-  void success() {
-    showToast("Successfully Added!");
-    eventBus?.fire(BaseEventBus(EventBusAction.REFRESH_CONTACT));
-    Get.back();
+    await contactDoc.set(json).request(
+      onSuccess: (value) {
+        showToast("Successfully Added!");
+        eventBus?.fire(BaseEventBus(EventBusAction.REFRESH_CONTACT));
+        Get.back();
+      },
+    );
   }
 }

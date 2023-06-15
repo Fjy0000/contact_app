@@ -206,8 +206,8 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           BaseAvatar(
+            isImageUrl: true,
             imagePath: arguments.contact?.imagePath,
-            name: arguments.contact?.name,
           ),
           const SizedBox(height: 15),
           BaseText(

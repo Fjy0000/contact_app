@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter/material.dart';
 
 import '../utils/constants/constant.dart';
-import 'base_text.dart';
 
 class BaseButton extends StatelessWidget {
   const BaseButton(
@@ -67,7 +65,10 @@ class BaseButton extends StatelessWidget {
                         : const LinearGradient(
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight,
-                            colors: [Color(0xffffd600), Color(0xffff8900)],
+                            colors: [
+                              Color(0xff2575fc),
+                              Color(0xff6a11cb),
+                            ],
                           ),
                   )),
         child: Center(
