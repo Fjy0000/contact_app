@@ -167,7 +167,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  for (BaseMenuItem item in bottomBarItem) buildItem(item),
+                  for (BaseMenuItem item in bottomBarItem) buildBottomBarItem(item),
                 ],
               ),
             )
@@ -243,7 +243,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
     );
   }
 
-  Widget buildItem(BaseMenuItem item) {
+  Widget buildBottomBarItem(BaseMenuItem item) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: GestureDetector(

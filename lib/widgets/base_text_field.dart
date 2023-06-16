@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'base_divider.dart';
 import 'base_text.dart';
 
-
 class BaseTextField extends StatelessWidget {
   const BaseTextField({
     Key? key,
@@ -92,8 +91,9 @@ class BaseTextField extends StatelessWidget {
           padding: padding ??
               EdgeInsets.only(top: 19.0, bottom: 19.0, left: 15.0, right: 15.0),
           decoration: decoration ??
-              const BoxDecoration(
-                color: Color(0x33e8e8e8),
+              BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: const Color(0x33e8e8e8),
               ),
           child: Row(children: [
             if (prefix != null) prefix ?? Container(),
@@ -113,8 +113,8 @@ class BaseTextField extends StatelessWidget {
                       border: const UnderlineInputBorder(
                           borderSide: BorderSide.none),
                       hintText: hinText ?? "",
-                      hintStyle: TextStyle(
-                          color: hintTextColor ?? AppTheme.HINT),
+                      hintStyle:
+                          TextStyle(color: hintTextColor ?? AppTheme.HINT),
                     ),
                     readOnly: readOnly ?? false,
                     enabled: isDisable ?? true,

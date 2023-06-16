@@ -58,7 +58,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
     // if (box.read(StoreBox.USER_OBJECT) == null) {
     //   Get.offNamed(GetPageRoutes.login);
     // } else {
-    Get.offNamed(GetPageRoutes.contact);
+    Get.offNamed(GetPageRoutes.login);
     // }
   }
 }

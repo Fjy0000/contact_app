@@ -65,16 +65,22 @@ class _ContactPageState extends State<ContactPage> {
         "Contact",
         isEnableBack: false,
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: IconButton(
-              onPressed: () {
-                Get.toNamed(GetPageRoutes.addContact);
-              },
-              icon: const Icon(
-                Icons.add,
-                color: AppTheme.WHITE_COLOR,
-              ),
+          IconButton(
+            onPressed: () {
+              Get.toNamed(GetPageRoutes.addContact);
+            },
+            icon: const Icon(
+              Icons.add,
+              color: AppTheme.WHITE_COLOR,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              Get.offNamed(GetPageRoutes.login);
+            },
+            icon: const Icon(
+              Icons.logout,
+              color: AppTheme.WHITE_COLOR,
             ),
           ),
         ],
