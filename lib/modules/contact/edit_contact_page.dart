@@ -32,7 +32,7 @@ class _EditContactPageState extends State<EditContactPage> {
   TextEditingController noteController = TextEditingController();
   TextEditingController organisationController = TextEditingController();
 
-  final viewModel = EditContactViewModel();
+  final viewModel = Get.createViewModel(EditContactViewModel());
 
   String? avatarPath;
 

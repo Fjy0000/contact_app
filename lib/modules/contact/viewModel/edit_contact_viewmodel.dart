@@ -6,6 +6,7 @@ import 'package:app2/main.dart';
 import 'package:app2/model/body/contact_body.dart';
 import 'package:app2/utils/constants/enums.dart';
 import 'package:app2/utils/extension.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 
 class EditContactViewModel extends BaseViewModel {

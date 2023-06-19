@@ -6,9 +6,11 @@ import 'package:app2/utils/constants/enums.dart';
 import 'package:app2/utils/extension.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class ReadContactViewModel extends BaseViewModel {
   RxList<ContactBean> contactList = RxList();
+  final response = Rxn<ContactBean>();
 
   Future<void> getData() async {
     appState.value = AppState.Loading;
@@ -36,6 +38,23 @@ class ReadContactViewModel extends BaseViewModel {
     } else {
       appState.value = AppState.Success;
     }
+  }
+
+  Future<void> selectedContactDetails(String id) async {
+    collectionReference.doc(id).get().request(onSuccess: (value) {
+      var data = value.data() as Map<String, dynamic>;
+
+      response.value = ContactBean(
+        id: data['id'],
+        name: data['name'],
+        contactNo: data['contactNo'],
+        organisation: data['organisation'],
+        email: data['email'],
+        address: data['address'],
+        note: data['note'],
+        imagePath: data['imagePath'],
+      );
+    });
   }
 
   Future<void> deleteContact(ContactBean contact) async {

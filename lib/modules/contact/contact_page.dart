@@ -8,6 +8,7 @@ import 'package:app2/modules/contact/argument/contact_details_argument.dart';
 import 'package:app2/modules/contact/viewModel/read_contact_viewmodel.dart';
 import 'package:app2/utils/constants/constant.dart';
 import 'package:app2/utils/constants/enums.dart';
+import 'package:app2/utils/extension.dart';
 import 'package:app2/utils/get_page_router.dart';
 import 'package:app2/widgets/base_app_bar.dart';
 import 'package:app2/widgets/base_scaffold.dart';
@@ -25,7 +26,7 @@ class ContactPage extends StatefulWidget {
 }
 
 class _ContactPageState extends State<ContactPage> {
-  final viewModel = ReadContactViewModel();
+  final viewModel = Get.createViewModel(ReadContactViewModel());
 
   StreamSubscription? subscription;
 

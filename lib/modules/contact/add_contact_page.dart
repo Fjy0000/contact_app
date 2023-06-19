@@ -28,7 +28,7 @@ class _AddContactPageState extends State<AddContactPage> {
   TextEditingController noteController = TextEditingController();
   TextEditingController organisationController = TextEditingController();
 
-  final viewModel = CreateContactViewModel();
+  final viewModel = Get.createViewModel(CreateContactViewModel());
 
   String avatarPath = '';
 

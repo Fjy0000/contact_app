@@ -17,6 +17,6 @@ abstract class BaseViewModel extends GetxController {
   CollectionReference collectionReference =
       FirebaseFirestore.instance.collection("contact");
 
-  //reference to firebase storage
+  //reference to firebase storage file
   Reference storageReference = FirebaseStorage.instance.ref().child('avatars');
 }
