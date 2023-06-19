@@ -173,7 +173,7 @@ class _AddContactPageState extends State<AddContactPage> {
                     showToast('Required fill up CONTACT NO');
                   } else {
                     viewModel.saveContact(
-                      Contact(
+                      ContactBean(
                         name: nameController.text,
                         contactNo: contactNoController.text,
                         email: emailController.text,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class StoreBox {
+  static String CONTACT = 'CONTACT';
   static String LANGUAGE = 'LANG';
 }
 

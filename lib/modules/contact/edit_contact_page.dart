@@ -198,7 +198,7 @@ class _EditContactPageState extends State<EditContactPage> {
                     showToast('Required fill up contact no');
                   } else {
                     viewModel.editContact(
-                      Contact(
+                      ContactBean(
                         id: arguments.contact?.id,
                         name: nameController.text,
                         contactNo: contactNoController.text,

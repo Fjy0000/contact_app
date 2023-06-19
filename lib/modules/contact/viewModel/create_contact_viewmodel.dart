@@ -9,7 +9,7 @@ import 'package:app2/utils/extension.dart';
 import 'package:get/get.dart';
 
 class CreateContactViewModel extends BaseViewModel {
-  Future<void> saveContact(Contact contact) async {
+  Future<void> saveContact(ContactBean contact) async {
     String avatarUrl = '';
 
     final contactDoc = collectionReference.doc();
@@ -21,7 +21,7 @@ class CreateContactViewModel extends BaseViewModel {
       avatarUrl = await refUploadAvatarName.getDownloadURL();
     }
 
-    final saveData = Contact(
+    final saveData = ContactBean(
       id: contactDoc.id,
       name: contact.name,
       contactNo: contact.contactNo,

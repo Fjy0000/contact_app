@@ -5,7 +5,6 @@ import 'package:app2/base/base_viewmodel.dart';
 import 'package:app2/main.dart';
 import 'package:app2/model/body/contact_body.dart';
 import 'package:app2/modules/contact/argument/contact_details_argument.dart';
-import 'package:app2/modules/contact/viewModel/delete_contact_viewmodel.dart';
 import 'package:app2/modules/contact/viewModel/read_contact_viewmodel.dart';
 import 'package:app2/utils/constants/constant.dart';
 import 'package:app2/utils/constants/enums.dart';
@@ -27,7 +26,6 @@ class ContactPage extends StatefulWidget {
 
 class _ContactPageState extends State<ContactPage> {
   final viewModel = ReadContactViewModel();
-  final deleteViewModel = DeleteContactViewModel();
 
   StreamSubscription? subscription;
 
@@ -112,8 +110,7 @@ class _ContactPageState extends State<ContactPage> {
     );
   }
 
-  Widget item(Contact data) {
-    print("@@@@@@@ ${data.imagePath}");
+  Widget item(ContactBean data) {
     return GestureDetector(
       onTap: () {
         Get.toNamed(GetPageRoutes.contactDetails,
@@ -144,7 +141,7 @@ class _ContactPageState extends State<ContactPage> {
     );
   }
 
-  void showPopUpMenu(BuildContext context, Offset position, Contact data) {
+  void showPopUpMenu(BuildContext context, Offset position, ContactBean data) {
     //menu display position
     final RenderBox overlay =
         Overlay.of(context)!.context.findRenderObject() as RenderBox;
@@ -176,7 +173,7 @@ class _ContactPageState extends State<ContactPage> {
     });
   }
 
-  void showMenuItemDialog(int value, Contact data) {
+  void showMenuItemDialog(int value, ContactBean data) {
     switch (value) {
       case 1:
         showDialog(
@@ -191,7 +188,7 @@ class _ContactPageState extends State<ContactPage> {
                 ),
                 content: RichText(
                   text: TextSpan(
-                    text: 'Do you want to delete this contact : (',
+                    text: 'Do you want to delete this contact : ( ',
                     children: <TextSpan>[
                       TextSpan(
                         text: data.name?.isNotEmpty == true
@@ -202,7 +199,7 @@ class _ContactPageState extends State<ContactPage> {
                           fontSize: 18,
                         ),
                       ),
-                      const TextSpan(text: ') ?'),
+                      const TextSpan(text: ' ) ?'),
                     ],
                   ),
                 ),
@@ -219,7 +216,7 @@ class _ContactPageState extends State<ContactPage> {
                   ),
                   TextButton(
                     onPressed: () {
-                      deleteViewModel.deleteContact(data);
+                      viewModel.deleteContact(data);
                     },
                     child: const BaseText(
                       'Delete',

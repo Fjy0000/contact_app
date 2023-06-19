@@ -9,7 +9,7 @@ import 'package:app2/utils/extension.dart';
 import 'package:get/get.dart';
 
 class EditContactViewModel extends BaseViewModel {
-  Future<void> editContact(Contact contact) async {
+  Future<void> editContact(ContactBean contact) async {
     String avatarUrl = '';
 
     final contactDoc = collectionReference.doc(contact.id);

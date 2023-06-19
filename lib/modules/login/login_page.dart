@@ -1,4 +1,5 @@
 import 'package:app2/utils/constants/constant.dart';
+import 'package:app2/utils/extension.dart';
 import 'package:app2/utils/get_page_router.dart';
 import 'package:app2/utils/image_utils.dart';
 import 'package:app2/widgets/base_app_bar.dart';
@@ -24,6 +25,40 @@ class _LoginPageState extends State<LoginPage> {
   bool isAgree = false;
 
   RxBool isObscure = true.obs;
+
+  @override
+  void initState() {
+    email.text = "abc@gmail.com";
+    password.text = "123456";
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void showAgreement() async {
+    const url = "https://www.google.com.my/";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw "Could not launch $url";
+    }
+  }
+
+  void login() {
+    if (email.text.isEmpty || password.text.isEmpty) {
+      showToast("Please fill in all fields");
+      return;
+    } else if (email.text != "abc@gmail.com" || password.text != "123456") {
+      showToast("email or password wrong !!!");
+      return;
+    } else {
+      Get.offNamed(GetPageRoutes.contact);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                     'Login',
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     onPressed: () {
-                      Get.offNamed(GetPageRoutes.contact);
+                      login();
                     },
                   ),
                 ],
@@ -128,15 +163,6 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ],
     );
-  }
-
-  void showAgreement() async {
-    const url = "https://www.google.com.my/";
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw "Could not launch $url";
-    }
   }
 
   Widget obscureBtn() {

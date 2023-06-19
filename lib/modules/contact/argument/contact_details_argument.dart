@@ -1,7 +1,7 @@
 import 'package:app2/model/body/contact_body.dart';
 
 class ContactArgument {
-  Contact? contact;
+  ContactBean? contact;
 
   ContactArgument(this.contact);
 }
