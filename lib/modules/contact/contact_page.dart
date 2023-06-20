@@ -57,6 +57,10 @@ class _ContactPageState extends State<ContactPage> {
     super.dispose();
   }
 
+  void _refresh() {
+    initApi();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
@@ -92,18 +96,24 @@ class _ContactPageState extends State<ContactPage> {
             });
           }
           return SafeArea(
-            child: ListView.separated(
-              itemCount: viewModel.contactList.length,
-              separatorBuilder: (BuildContext context, int index) =>
-                  const SizedBox(height: 25),
-              itemBuilder: (BuildContext context, int index) {
-                return Column(
-                  children: [
-                    if (index == 0) const SizedBox(height: 10),
-                    item(viewModel.contactList[index]),
-                  ],
-                );
+            child: RefreshIndicator(
+              triggerMode: RefreshIndicatorTriggerMode.onEdge,
+              onRefresh: () async {
+                _refresh();
               },
+              child: ListView.separated(
+                itemCount: viewModel.contactList.length,
+                separatorBuilder: (BuildContext context, int index) =>
+                    const SizedBox(height: 25),
+                itemBuilder: (BuildContext context, int index) {
+                  return Column(
+                    children: [
+                      if (index == 0) const SizedBox(height: 10),
+                      item(viewModel.contactList[index]),
+                    ],
+                  );
+                },
+              ),
             ),
           );
         },

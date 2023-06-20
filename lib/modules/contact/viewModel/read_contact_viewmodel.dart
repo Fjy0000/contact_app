@@ -61,8 +61,8 @@ class ReadContactViewModel extends BaseViewModel {
     final deleteDoc = collectionReference.doc(contact.id);
     final storageFile = storageReference.child("${contact.id}");
 
-    await deleteDoc.delete().request(onSuccess: (v) async {
-      await storageFile.delete();
+    deleteDoc.delete().request(onSuccess: (v) async {
+      storageFile.delete();
       showToast("Successfully Delete!");
       eventBus?.fire(BaseEventBus(EventBusAction.REFRESH_CONTACT));
       Get.back();
