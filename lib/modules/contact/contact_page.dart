@@ -92,7 +92,7 @@ class _ContactPageState extends State<ContactPage> {
         () {
           if (viewModel.appState.value != AppState.Success) {
             return BaseAppStateUi(viewModel.appState, onPressed: () {
-              initState();
+              _refresh();
             });
           }
           return SafeArea(

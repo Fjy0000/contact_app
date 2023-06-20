@@ -53,6 +53,7 @@ class BaseAppStateUi extends StatelessWidget {
           const SizedBox(height: 20),
           BaseButton(
             'Refresh',
+            margin: const EdgeInsets.symmetric(horizontal: 35),
             textSize: 12,
             onPressed: onPressed,
           ),
