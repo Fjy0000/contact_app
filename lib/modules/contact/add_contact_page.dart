@@ -103,6 +103,7 @@ class _AddContactPageState extends State<AddContactPage> {
                       Stack(
                         children: [
                           BaseAvatar(
+                            isImagePath: true,
                             imagePath: avatarPath,
                           ),
                           Positioned(
