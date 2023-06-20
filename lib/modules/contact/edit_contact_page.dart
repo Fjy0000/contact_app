@@ -214,6 +214,7 @@ class _EditContactPageState extends State<EditContactPage> {
                 margin: const EdgeInsets.symmetric(vertical: 20),
                 width: double.infinity,
                 onPressed: () {
+                  FocusScope.of(context).unfocus();
                   update();
                 },
               ),

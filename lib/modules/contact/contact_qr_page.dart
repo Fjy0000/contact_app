@@ -50,6 +50,14 @@ class _ContactQrPageState extends State<ContactQrPage> {
       appBar: BaseAppBar(
         backgroundColor: Colors.transparent,
         "Contact QR Code",
+        actions: [
+          IconButton(
+            onPressed: () {
+              //share function
+            },
+            icon: const Icon(Icons.share),
+          ),
+        ],
       ),
       body: SafeArea(
         child: Center(

@@ -102,6 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                     'Login',
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     onPressed: () {
+                      FocusScope.of(context).unfocus();
                       login();
                     },
                   ),

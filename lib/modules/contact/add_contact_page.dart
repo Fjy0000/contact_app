@@ -187,6 +187,7 @@ class _AddContactPageState extends State<AddContactPage> {
                 margin: const EdgeInsets.symmetric(vertical: 20),
                 width: double.infinity,
                 onPressed: () {
+                  FocusScope.of(context).unfocus();
                   save();
                 },
               ),
