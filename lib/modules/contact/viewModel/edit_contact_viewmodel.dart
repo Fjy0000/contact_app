@@ -22,15 +22,19 @@ class EditContactViewModel extends BaseViewModel {
       avatarUrl = await refUploadAvatarName.getDownloadURL();
     }
 
-    await contactDoc.update({
-      "name": contact.name,
-      "contactNo": contact.contactNo,
-      "organisation": contact.organisation,
-      "email": contact.email,
-      "address": contact.address,
-      "note": contact.note,
-      "imagePath": avatarUrl,
-    }).request(onSuccess: (value) {
+    final updateData = ContactBean(
+      name: contact.name,
+      contactNo: contact.contactNo,
+      organisation: contact.organisation,
+      email: contact.email,
+      address: contact.address,
+      note: contact.note,
+      imagePath: avatarUrl,
+    );
+
+    final json = updateData.toJson();
+
+    await contactDoc.update(json).request(onSuccess: (value) {
       showToast("Successfully Updated!");
       eventBus?.fire(BaseEventBus(EventBusAction.REFRESH_CONTACT));
       Get.back();

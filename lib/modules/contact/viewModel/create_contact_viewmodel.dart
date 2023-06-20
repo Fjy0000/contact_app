@@ -10,13 +10,13 @@ import 'package:get/get.dart';
 
 class CreateContactViewModel extends BaseViewModel {
   Future<void> saveContact(ContactBean contact) async {
-    String avatarUrl = '';
+    String? avatarUrl;
 
     final contactDoc = collectionReference.doc();
 
     final refUploadAvatarName = storageReference.child(contactDoc.id);
 
-    if (contact.imagePath != '') {
+    if (contact.imagePath != '' || contact.imagePath != null) {
       await refUploadAvatarName.putFile(File("${contact.imagePath}"));
       avatarUrl = await refUploadAvatarName.getDownloadURL();
     }
@@ -33,6 +33,7 @@ class CreateContactViewModel extends BaseViewModel {
     );
 
     final json = saveData.toJson();
+
     await contactDoc.set(json).request(
       onSuccess: (value) {
         showToast("Successfully Added!");
