@@ -228,7 +228,6 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           BaseAvatar(
-            isImagePath: true,
             imagePath: data?.imagePath,
           ),
           const SizedBox(height: 15),
