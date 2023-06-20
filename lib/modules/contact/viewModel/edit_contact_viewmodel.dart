@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 
 class EditContactViewModel extends BaseViewModel {
   Future<void> editContact(ContactBean contact) async {
-    String avatarUrl = '';
+    String avatarUrl = contact.imagePath ?? '';
 
     final contactDoc = collectionReference.doc(contact.id);
 

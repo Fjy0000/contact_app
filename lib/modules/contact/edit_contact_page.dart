@@ -92,6 +92,25 @@ class _EditContactPageState extends State<EditContactPage> {
     super.dispose();
   }
 
+  void update() {
+    if (contactNoController.text.isEmpty) {
+      showToast('Required fill up contact no');
+    } else {
+      viewModel.editContact(
+        ContactBean(
+          id: arguments.contact?.id,
+          name: nameController.text,
+          contactNo: contactNoController.text,
+          email: emailController.text,
+          organisation: organisationController.text,
+          address: addressController.text,
+          note: noteController.text,
+          imagePath: avatarPath,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
@@ -194,22 +213,7 @@ class _EditContactPageState extends State<EditContactPage> {
                 margin: const EdgeInsets.symmetric(vertical: 20),
                 width: double.infinity,
                 onPressed: () {
-                  if (contactNoController.text.isEmpty) {
-                    showToast('Required fill up contact no');
-                  } else {
-                    viewModel.editContact(
-                      ContactBean(
-                        id: arguments.contact?.id,
-                        name: nameController.text,
-                        contactNo: contactNoController.text,
-                        email: emailController.text,
-                        organisation: organisationController.text,
-                        address: addressController.text,
-                        note: noteController.text,
-                        imagePath: avatarPath,
-                      ),
-                    );
-                  }
+                  update();
                 },
               ),
             ],
