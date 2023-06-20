@@ -40,7 +40,7 @@ class ReadContactViewModel extends BaseViewModel {
     }
   }
 
-  Future<void> selectedContactDetails(String id) async {
+  Future<void> selectedContactDetails(String? id) async {
     collectionReference.doc(id).get().request(onSuccess: (value) {
       var data = value.data() as Map<String, dynamic>;
 

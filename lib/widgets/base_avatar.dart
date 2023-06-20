@@ -7,12 +7,12 @@ class BaseAvatar extends StatelessWidget {
     this.height,
     this.width,
     this.imagePath,
-    this.isImageUrl = false,
+    this.isImagePath = false,
     this.iconPaddingAll,
     Key? key,
   }) : super(key: key);
 
-  final bool? isImageUrl;
+  final bool? isImagePath;
   final String? imagePath;
   final double? height;
   final double? width;
@@ -38,8 +38,8 @@ class BaseAvatar extends StatelessWidget {
         ),
         child: imagePath != ''
             ? imageAsset(
-                imageUrl: isImageUrl == true ? imagePath : null,
-                file: isImageUrl == false ? File("$imagePath") : null,
+                imageUrl: isImagePath == false ? imagePath : null,
+                file: isImagePath == true ? File("$imagePath") : null,
                 fit: BoxFit.cover,
               )
             : Padding(

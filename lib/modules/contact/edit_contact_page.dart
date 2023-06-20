@@ -39,7 +39,7 @@ class _EditContactPageState extends State<EditContactPage> {
   XFile? image;
   final ImagePicker picker = ImagePicker();
 
-  bool? isImageUrl = true;
+  bool? isChangePicture = false;
 
   Future<void> getSource(String type) async {
     if (type == 'camera') {
@@ -66,9 +66,9 @@ class _EditContactPageState extends State<EditContactPage> {
 
       avatarPath = image?.path ?? arguments.contact?.imagePath;
       if (image?.path.isNotEmpty == true) {
-        isImageUrl = false;
+        isChangePicture = true;
       } else {
-        isImageUrl = true;
+        isChangePicture = false;
       }
       Navigator.pop(context);
     });
@@ -97,6 +97,7 @@ class _EditContactPageState extends State<EditContactPage> {
       showToast('Required fill up contact no');
     } else {
       viewModel.editContact(
+        isChangePicture,
         ContactBean(
           id: arguments.contact?.id,
           name: nameController.text,
@@ -129,7 +130,7 @@ class _EditContactPageState extends State<EditContactPage> {
                         children: [
                           BaseAvatar(
                             imagePath: avatarPath,
-                            isImageUrl: isImageUrl,
+                            isImagePath: isChangePicture,
                           ),
                           Positioned(
                             bottom: 5,

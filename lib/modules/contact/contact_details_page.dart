@@ -53,7 +53,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
   }
 
   initApi() {
-    viewModel.selectedContactDetails(arguments.contact?.id ?? "");
+    viewModel.selectedContactDetails(arguments.contact?.id);
   }
 
   initBottomBarItem() {
@@ -228,7 +228,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           BaseAvatar(
-            isImageUrl: true,
+            isImagePath: true,
             imagePath: data?.imagePath,
           ),
           const SizedBox(height: 15),

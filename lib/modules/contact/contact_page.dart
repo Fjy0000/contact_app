@@ -140,7 +140,6 @@ class _ContactPageState extends State<ContactPage> {
               height: 60,
               iconPaddingAll: 15,
               imagePath: data.imagePath,
-              isImageUrl: true,
             ),
             const SizedBox(width: 20),
             data.name != ''

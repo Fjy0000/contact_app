@@ -64,7 +64,7 @@ class _ContactQrPageState extends State<ContactQrPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 BaseAvatar(
-                  isImageUrl: true,
+                  isImagePath: true,
                   imagePath: arguments.contact?.imagePath,
                 ),
                 const SizedBox(height: 15),
