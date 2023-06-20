@@ -31,17 +31,15 @@ class CreateContactViewModel extends BaseViewModel {
             }
             break;
           case TaskState.paused:
-            // TODO: Handle this case.
+            print("upload image paused");
             break;
           case TaskState.canceled:
-            // TODO: Handle this case.
+            print("upload image canceled");
             break;
           case TaskState.error:
             showToast('save contact fail');
             break;
           case TaskState.success:
-            dismissDialog();
-
             avatarUrl = await refUploadAvatarName.getDownloadURL();
             final saveData = ContactBean(
               id: contactDoc.id,
@@ -58,6 +56,7 @@ class CreateContactViewModel extends BaseViewModel {
 
             await contactDoc.set(json).request(
               onSuccess: (value) {
+                dismissDialog();
                 showToast("Successfully Added!");
                 eventBus?.fire(BaseEventBus(EventBusAction.REFRESH_CONTACT));
                 Get.back();
