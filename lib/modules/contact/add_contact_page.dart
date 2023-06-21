@@ -50,7 +50,7 @@ class _AddContactPageState extends State<AddContactPage> {
       });
     } else if (type == 'gallery') {
       requestPermission([Permission.storage],
-          customMsg: 'permission_required_camera'.tr, onSuccess: (value) {
+          customMsg: 'permission_required_storage'.tr, onSuccess: (value) {
         if (value.isGranted) {
           getPhoto(ImageSource.gallery);
         }
@@ -69,7 +69,7 @@ class _AddContactPageState extends State<AddContactPage> {
 
   void save() {
     if (contactNoController.text.isEmpty) {
-      showToast('Required fill up CONTACT NO');
+      showToast('input_contactNo_error'.tr);
     } else {
       viewModel.saveContact(
         ContactBean(
@@ -88,7 +88,7 @@ class _AddContactPageState extends State<AddContactPage> {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      appBar: BaseAppBar("Add New Contact"),
+      appBar: BaseAppBar("add_new_contact".tr),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -135,14 +135,14 @@ class _AddContactPageState extends State<AddContactPage> {
                       ),
                       const SizedBox(height: 20),
                       CustomTextField(
-                        label: "Name",
+                        label: "name".tr,
                         controller: nameController,
                         removeDecoration: true,
                         maxLength: 15,
                       ),
                       const SizedBox(height: 20),
                       CustomTextField(
-                        label: "Contact No",
+                        label: "contact_no".tr,
                         controller: contactNoController,
                         removeDecoration: true,
                         keyboardType: TextInputType.phone,
@@ -150,7 +150,7 @@ class _AddContactPageState extends State<AddContactPage> {
                       ),
                       const SizedBox(height: 20),
                       CustomTextField(
-                        label: "Email",
+                        label: "email".tr,
                         controller: emailController,
                         removeDecoration: true,
                         keyboardType: TextInputType.emailAddress,
@@ -158,21 +158,21 @@ class _AddContactPageState extends State<AddContactPage> {
                       ),
                       const SizedBox(height: 20),
                       CustomTextField(
-                        label: "Organisation",
+                        label: "organisation".tr,
                         controller: organisationController,
                         removeDecoration: true,
                         maxLength: 20,
                       ),
                       const SizedBox(height: 20),
                       CustomTextField(
-                        label: "Address",
+                        label: "address".tr,
                         controller: addressController,
                         removeDecoration: true,
                         maxLength: 15,
                       ),
                       const SizedBox(height: 20),
                       CustomTextField(
-                        label: "Note",
+                        label: "note".tr,
                         controller: noteController,
                         removeDecoration: true,
                         maxLength: 20,
@@ -183,7 +183,7 @@ class _AddContactPageState extends State<AddContactPage> {
                 ),
               ),
               BaseButton(
-                'Save',
+                'save'.tr,
                 margin: const EdgeInsets.symmetric(vertical: 20),
                 width: double.infinity,
                 onPressed: () {
@@ -212,13 +212,13 @@ class _AddContactPageState extends State<AddContactPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const BaseText(
-            'Choose Profile Photo',
+           BaseText(
+            'choose_profile_photo'.tr,
             fontSize: 24,
           ),
           const SizedBox(height: 40),
           BaseButton(
-            "Camera",
+            "camera".tr,
             onPressed: () {
               getSource('camera');
             },
@@ -227,7 +227,7 @@ class _AddContactPageState extends State<AddContactPage> {
           ),
           const SizedBox(height: 15),
           BaseButton(
-            "Gallery",
+            "gallery".tr,
             onPressed: () {
               getSource('gallery');
             },

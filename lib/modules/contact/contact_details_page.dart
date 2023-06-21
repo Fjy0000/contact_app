@@ -61,7 +61,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
     bottomBarItem.addAll([
       //BaseMenuItem(label: "Favourite", icon: "star_btn.svg", onTap: () {}),
       BaseMenuItem(
-          label: "Edit",
+          label: "edit".tr,
           icon: "edit_btn.svg",
           onTap: () {
             Get.toNamed(
@@ -94,8 +94,8 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                     NestedScrollView.sliverOverlapAbsorberHandleFor(context),
                 sliver: SliverAppBar(
                   backgroundColor: Colors.transparent,
-                  title: const BaseText(
-                    "Contact Details",
+                  title: BaseText(
+                    "contact_details".tr,
                     fontSize: 20,
                   ),
                   centerTitle: true,
@@ -146,32 +146,32 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                             height: MediaQuery.of(context).padding.top +
                                 kToolbarHeight),
                         buildRowText(
-                          "Contact No",
+                          "contact_no".tr,
                           data?.contactNo,
                         ),
                         const SizedBox(height: 20),
                         buildRowText(
-                          "Name",
+                          "name".tr,
                           data?.name,
                         ),
                         const SizedBox(height: 20),
                         buildRowText(
-                          "Organisation",
+                          "organisation".tr,
                           data?.organisation,
                         ),
                         const SizedBox(height: 20),
                         buildRowText(
-                          "Email",
+                          "email".tr,
                           data?.email,
                         ),
                         const SizedBox(height: 20),
                         buildRowText(
-                          "Address",
+                          "address".tr,
                           data?.address,
                         ),
                         const SizedBox(height: 20),
                         buildRowText(
-                          "Note",
+                          "note".tr,
                           data?.note,
                         ),
                       ],

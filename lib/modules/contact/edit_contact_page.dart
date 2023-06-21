@@ -94,7 +94,7 @@ class _EditContactPageState extends State<EditContactPage> {
 
   void update() {
     if (contactNoController.text.isEmpty) {
-      showToast('Required fill up contact no');
+      showToast('input_contactNo_error'.tr);
     } else {
       viewModel.editContact(
         isChangePicture,
@@ -115,7 +115,7 @@ class _EditContactPageState extends State<EditContactPage> {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      appBar: BaseAppBar("Update Contact Details"),
+      appBar: BaseAppBar("update_contact_details".tr),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -161,14 +161,14 @@ class _EditContactPageState extends State<EditContactPage> {
                       ),
                       const SizedBox(height: 20),
                       CustomTextField(
-                        label: "Name",
+                        label: "name".tr,
                         controller: nameController,
                         removeDecoration: true,
                         maxLength: 15,
                       ),
                       const SizedBox(height: 20),
                       CustomTextField(
-                        label: "Contact No",
+                        label: "contact_no".tr,
                         controller: contactNoController,
                         removeDecoration: true,
                         keyboardType: TextInputType.phone,
@@ -176,7 +176,7 @@ class _EditContactPageState extends State<EditContactPage> {
                       ),
                       const SizedBox(height: 20),
                       CustomTextField(
-                        label: "Email",
+                        label: "email".tr,
                         controller: emailController,
                         removeDecoration: true,
                         keyboardType: TextInputType.emailAddress,
@@ -184,21 +184,21 @@ class _EditContactPageState extends State<EditContactPage> {
                       ),
                       const SizedBox(height: 20),
                       CustomTextField(
-                        label: "Organisation",
+                        label: "organisation".tr,
                         controller: organisationController,
                         removeDecoration: true,
                         maxLength: 40,
                       ),
                       const SizedBox(height: 20),
                       CustomTextField(
-                        label: "Address",
+                        label: "address".tr,
                         controller: addressController,
                         removeDecoration: true,
                         maxLines: 5,
                       ),
                       const SizedBox(height: 20),
                       CustomTextField(
-                        label: "Note",
+                        label: "note".tr,
                         controller: noteController,
                         removeDecoration: true,
                         keyboardType: TextInputType.phone,
@@ -210,7 +210,7 @@ class _EditContactPageState extends State<EditContactPage> {
                 ),
               ),
               BaseButton(
-                'Update',
+                'update'.tr,
                 margin: const EdgeInsets.symmetric(vertical: 20),
                 width: double.infinity,
                 onPressed: () {
@@ -239,13 +239,13 @@ class _EditContactPageState extends State<EditContactPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const BaseText(
-            'Choose Profile Photo',
+          BaseText(
+            'choose_profile_photo'.tr,
             fontSize: 24,
           ),
           const SizedBox(height: 40),
           BaseButton(
-            "Camera",
+            "camera".tr,
             onPressed: () {
               getSource('camera');
             },
@@ -254,7 +254,7 @@ class _EditContactPageState extends State<EditContactPage> {
           ),
           const SizedBox(height: 15),
           BaseButton(
-            "Gallery",
+            "gallery".tr,
             onPressed: () {
               getSource('gallery');
             },

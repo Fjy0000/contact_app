@@ -71,7 +71,7 @@ class _ContactQrPageState extends State<ContactQrPage> {
     return BaseScaffold(
       appBar: BaseAppBar(
         backgroundColor: Colors.transparent,
-        "Contact QR Code",
+        "contact_qr".tr,
         actions: [
           IconButton(
             onPressed: () {

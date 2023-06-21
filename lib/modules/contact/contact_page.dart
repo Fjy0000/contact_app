@@ -65,7 +65,7 @@ class _ContactPageState extends State<ContactPage> {
   Widget build(BuildContext context) {
     return BaseScaffold(
       appBar: BaseAppBar(
-        "Contact",
+        "contact".tr,
         isEnableBack: false,
         actions: [
           IconButton(
@@ -77,15 +77,42 @@ class _ContactPageState extends State<ContactPage> {
               color: AppTheme.WHITE_COLOR,
             ),
           ),
-          IconButton(
-            onPressed: () {
+          PopupMenuButton(itemBuilder: (context) {
+            return [
+              PopupMenuItem<int>(
+                value: 0,
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.compare_arrows,
+                      color: Colors.black,
+                    ),
+                    SizedBox(width: 5),
+                    Text("change_lang".tr),
+                  ],
+                ),
+              ),
+              PopupMenuItem<int>(
+                value: 1,
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.logout,
+                      color: Colors.black,
+                    ),
+                    SizedBox(width: 5),
+                    Text("logout".tr),
+                  ],
+                ),
+              ),
+            ];
+          }, onSelected: (value) {
+            if (value == 0) {
+              Get.toNamed(GetPageRoutes.changeLanguage);
+            } else if (value == 1) {
               Get.offNamed(GetPageRoutes.login);
-            },
-            icon: const Icon(
-              Icons.logout,
-              color: AppTheme.WHITE_COLOR,
-            ),
-          ),
+            }
+          }),
         ],
       ),
       body: Obx(
@@ -162,9 +189,9 @@ class _ContactPageState extends State<ContactPage> {
     final Offset popupPosition = Offset(dx, dy);
 
     List<PopupMenuEntry> menuItems = [
-      const PopupMenuItem(
+      PopupMenuItem(
         value: 1,
-        child: Text('Delete'),
+        child: Text('delete'.tr),
       ),
     ];
 
@@ -191,14 +218,14 @@ class _ContactPageState extends State<ContactPage> {
             builder: (BuildContext context) {
               return AlertDialog(
                 backgroundColor: AppTheme.BG_COLOR,
-                title: const BaseText(
-                  "Delete Contact",
+                title:  BaseText(
+                  "delete_title".tr,
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
                 content: RichText(
                   text: TextSpan(
-                    text: 'Do you want to delete this contact : ( ',
+                    text: '${'delete_desc'.tr} : ( ',
                     children: <TextSpan>[
                       TextSpan(
                         text: data.name?.isNotEmpty == true
@@ -218,8 +245,8 @@ class _ContactPageState extends State<ContactPage> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const BaseText(
-                      'Cancel',
+                    child:  BaseText(
+                      'cancel'.tr,
                       color: AppTheme.HINT,
                       fontSize: 16,
                     ),
@@ -228,8 +255,8 @@ class _ContactPageState extends State<ContactPage> {
                     onPressed: () {
                       viewModel.deleteContact(data);
                     },
-                    child: const BaseText(
-                      'Delete',
+                    child:  BaseText(
+                      'delete'.tr,
                       color: AppTheme.RED,
                       fontSize: 16,
                     ),

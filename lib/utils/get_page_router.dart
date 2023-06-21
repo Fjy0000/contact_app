@@ -1,4 +1,5 @@
 import 'package:app2/modules/contact/add_contact_page.dart';
+import 'package:app2/modules/contact/change_language_page.dart';
 import 'package:app2/modules/contact/contact_details_page.dart';
 import 'package:app2/modules/contact/contact_page.dart';
 import 'package:app2/modules/contact/contact_qr_page.dart';
@@ -16,6 +17,7 @@ class GetPageRoutes {
   static const String editContact = '/contact/edit';
   static const String contactDetails = '/contact/details';
   static const String contactQr = '/contact/details/Qrcode';
+  static const String changeLanguage = '/contact/change_lanaguage';
 
   static List<GetPage> routes() {
     return [
@@ -26,6 +28,7 @@ class GetPageRoutes {
       GetPage(name: contactDetails, page: () => const ContactDetailsPage()),
       GetPage(name: editContact, page: () => const EditContactPage()),
       GetPage(name: contactQr, page: () => const ContactQrPage()),
+      GetPage(name: changeLanguage, page: ()=> const ChangeLanguagePage()),
     ];
   }
 }

@@ -50,10 +50,10 @@ class _LoginPageState extends State<LoginPage> {
 
   void login() {
     if (email.text.isEmpty || password.text.isEmpty) {
-      showToast("Please fill in all fields");
+      showToast("login_error_1".tr);
       return;
     } else if (email.text != "abc@gmail.com" || password.text != "123456") {
-      showToast("email or password wrong !!!");
+      showToast("${"login_error_2".tr} !!!");
       return;
     } else {
       Get.offNamed(GetPageRoutes.contact);
@@ -63,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      appBar: BaseAppBar('Login'),
+      appBar: BaseAppBar('login'.tr),
       body: Obx(() {
         return SafeArea(
           child: Padding(
@@ -73,21 +73,21 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   const SizedBox(height: 35),
                   BaseTextField(
-                    hinText: 'Enter email'.tr,
+                    hinText: 'email_hint'.tr,
                     controller: email,
                     baseFontWeight: FontWeight.bold,
-                    baseText: 'Email'.tr,
+                    baseText: 'email'.tr,
                     isDisable: true,
                   ),
                   const SizedBox(
                     height: 25,
                   ),
                   BaseTextField(
-                    hinText: 'Enter password'.tr,
+                    hinText: 'password_hint'.tr,
                     controller: password,
                     obscureText: isObscure.value,
                     baseFontWeight: FontWeight.bold,
-                    baseText: 'Password'.tr,
+                    baseText: 'password'.tr,
                     isDisable: true,
                     postfix: obscureBtn(),
                   ),
@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                     height: 47,
                   ),
                   BaseButton(
-                    'Login',
+                    'login'.tr,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     onPressed: () {
                       FocusScope.of(context).unfocus();
@@ -131,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
         Expanded(
           child: RichText(
             text: TextSpan(
-              text: 'I confirm that I have read, understood and agree',
+              text: 'agreement_desc'.tr,
               style: const TextStyle(
                 color: AppTheme.WHITE_COLOR,
                 fontSize: 12,
@@ -147,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
                     ..onTap = () => {
                           showAgreement(),
                         },
-                  text: "User Agreement",
+                  text: "user_agreement".tr,
                   style: const TextStyle(
                     color: Colors.blue,
                     fontSize: 12,
