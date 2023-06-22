@@ -30,6 +30,7 @@ const Map<String, String> zhCN = {
   "add_new_contact": "添加新联系人",
   "login_error_1": "请填写所有字段",
   "login_error_2": "电子邮件或密码错误",
+  "login_error_3": "必须同意用户协议",
   "name": "姓名",
   "contact_no": "联系号码",
   "organisation": "组织",

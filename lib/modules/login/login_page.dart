@@ -52,7 +52,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void login() {
-    if (email.text.isEmpty || password.text.isEmpty) {
+    if (isAgree != true) {
+      showToast("login_error_3".tr);
+    } else if (email.text.isEmpty || password.text.isEmpty) {
       showToast("login_error_1".tr);
       return;
     } else if (email.text != "abc@gmail.com" || password.text != "123456") {
@@ -68,6 +70,7 @@ class _LoginPageState extends State<LoginPage> {
     return BaseScaffold(
       appBar: BaseAppBar(
         'login'.tr,
+        isEnableBack: false,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 25),

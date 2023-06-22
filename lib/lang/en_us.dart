@@ -30,6 +30,7 @@ const Map<String, String> enUS = {
   "add_new_contact": "Add New Contact",
   "login_error_1": "Please fill in all fields",
   "login_error_2": "email or password wrong",
+  "login_error_3": "Must agree the user agreement",
   "name": "Name",
   "contact_no": "Contact No",
   "organisation": "Organisation",
