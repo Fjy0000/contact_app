@@ -16,6 +16,7 @@ import 'package:app2/widgets/base_state_ui.dart';
 import 'package:app2/widgets/base_text.dart';
 import 'package:app2/widgets/base_avatar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 
 class ContactPage extends StatefulWidget {
@@ -83,11 +84,11 @@ class _ContactPageState extends State<ContactPage> {
                 value: 0,
                 child: Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.compare_arrows,
                       color: Colors.black,
                     ),
-                    SizedBox(width: 5),
+                    const SizedBox(width: 5),
                     Text("change_lang".tr),
                   ],
                 ),
@@ -96,11 +97,11 @@ class _ContactPageState extends State<ContactPage> {
                 value: 1,
                 child: Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.logout,
                       color: Colors.black,
                     ),
-                    SizedBox(width: 5),
+                    const SizedBox(width: 5),
                     Text("logout".tr),
                   ],
                 ),
@@ -150,29 +151,110 @@ class _ContactPageState extends State<ContactPage> {
   }
 
   Widget item(ContactBean data) {
-    return GestureDetector(
-      onTap: () {
-        Get.toNamed(GetPageRoutes.contactDetails,
-            arguments: ContactArgument(data));
-      },
-      behavior: HitTestBehavior.opaque,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Row(
-          children: [
-            BaseAvatar(
-              width: 60,
-              height: 60,
-              iconPaddingAll: 15,
-              imagePath: data.imagePath,
+    return Slidable(
+      key: const ValueKey(0),
+      endActionPane: ActionPane(
+        extentRatio: 1 / 4,
+        motion: const ScrollMotion(),
+        children: [
+          CustomSlidableAction(
+            backgroundColor: AppTheme.RED,
+            autoClose: false,
+            onPressed: (BuildContext context) {
+              deleteDialog(data);
+              setState(() {
+                Slidable.of(context)?.close();
+              });
+            },
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: BaseText(
+              'delete'.tr,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
             ),
-            const SizedBox(width: 20),
-            data.name != ''
-                ? BaseText(data.name, fontSize: 18)
-                : BaseText(data.contactNo, fontSize: 18),
-          ],
+          ),
+        ],
+      ),
+      child: GestureDetector(
+        onTap: () {
+          Get.toNamed(GetPageRoutes.contactDetails,
+              arguments: ContactArgument(data));
+        },
+        behavior: HitTestBehavior.opaque,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            children: [
+              BaseAvatar(
+                width: 60,
+                height: 60,
+                iconPaddingAll: 15,
+                imagePath: data.imagePath,
+              ),
+              const SizedBox(width: 20),
+              data.name != ''
+                  ? BaseText(data.name, fontSize: 18)
+                  : BaseText(data.contactNo, fontSize: 18),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Future<void> deleteDialog(ContactBean data) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: AppTheme.BG_COLOR,
+          title: BaseText(
+            "delete_title".tr,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+          content: RichText(
+            text: TextSpan(
+              text: '${'delete_desc'.tr} : ( ',
+              children: <TextSpan>[
+                TextSpan(
+                  text: data.name?.isNotEmpty == true
+                      ? data.name
+                      : data.contactNo,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+                const TextSpan(text: ' ) ?'),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: BaseText(
+                'cancel'.tr,
+                color: AppTheme.HINT,
+                fontSize: 16,
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                viewModel.deleteContact(data);
+              },
+              child: BaseText(
+                'delete'.tr,
+                color: AppTheme.RED,
+                fontSize: 16,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
