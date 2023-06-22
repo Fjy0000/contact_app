@@ -4,7 +4,6 @@ import 'package:app2/main.dart';
 import 'package:app2/utils/constants/constant.dart';
 import 'package:app2/utils/get_page_router.dart';
 import 'package:app2/utils/image_utils.dart';
-import 'package:app2/widgets/base_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -68,10 +67,10 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   }
 
   void checkLogin() {
-    // if (box.read(StoreBox.USER_OBJECT) == null) {
-    //   Get.offNamed(GetPageRoutes.login);
-    // } else {
-    Get.offNamed(GetPageRoutes.login);
-    // }
+    if (box.read(StoreBox.USER_LOGIN) == null) {
+      Get.offNamed(GetPageRoutes.login);
+    } else {
+    Get.offNamed(GetPageRoutes.contact);
+    }
   }
 }

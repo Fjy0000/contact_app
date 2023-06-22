@@ -1,4 +1,5 @@
 import 'package:app2/base/localization_service.dart';
+import 'package:app2/main.dart';
 import 'package:app2/utils/constants/constant.dart';
 import 'package:app2/utils/constants/enums.dart';
 import 'package:app2/utils/extension.dart';
@@ -62,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
       return;
     } else {
       Get.offNamed(GetPageRoutes.contact);
-
+      box.write(StoreBox.USER_LOGIN, email.text);
     }
   }
 
