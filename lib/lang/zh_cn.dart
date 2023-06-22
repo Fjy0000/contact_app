@@ -27,6 +27,7 @@ const Map<String, String> zhCN = {
   "nothing_now": "暂时没有",
   "invalid_qr_code": "错误二维码",
   "input_contactNo_error": "必需填写电话号码",
+  "input_contactNo_error2": "联系人无效",
   "input_email_error": "不合规电邮格式",
   "add_new_contact": "添加新联系人",
   "login_error_1": "请填写所有字段",

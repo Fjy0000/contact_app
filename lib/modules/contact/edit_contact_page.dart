@@ -8,6 +8,7 @@ import 'package:app2/widgets/base_button.dart';
 import 'package:app2/widgets/base_scaffold.dart';
 import 'package:app2/widgets/base_text.dart';
 import 'package:app2/widgets/custom_textfield.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -34,7 +35,11 @@ class _EditContactPageState extends State<EditContactPage> {
 
   final viewModel = Get.createViewModel(EditContactViewModel());
 
+  final _countryKey = GlobalKey<CountryCodePickerState>();
+
   String? avatarPath;
+
+  String _countryCode = '+60';
 
   XFile? image;
   final ImagePicker picker = ImagePicker();
@@ -93,18 +98,24 @@ class _EditContactPageState extends State<EditContactPage> {
   }
 
   void update() {
-    if (!emailController.text.contains("@") &&
-        !emailController.text.contains(".com")) {
-      showToast("input_email_error".tr);
+    final fullContactNo = _countryCode + contactNoController.text;
+
+    if (emailController.text != '') {
+      if (!emailController.text.contains("@") &&
+          !emailController.text.contains(".com")) {
+        showToast("input_email_error".tr);
+      }
     } else if (contactNoController.text.isEmpty) {
       showToast('input_contactNo_error'.tr);
+    } else if (fullContactNo.length <= 11) {
+      showToast('input_contactNo_error2'.tr);
     } else {
       viewModel.editContact(
         isChangePicture,
         ContactBean(
           id: arguments.contact?.id,
           name: nameController.text,
-          contactNo: contactNoController.text,
+          contactNo: fullContactNo,
           email: emailController.text,
           organisation: organisationController.text,
           address: addressController.text,
@@ -175,7 +186,28 @@ class _EditContactPageState extends State<EditContactPage> {
                         controller: contactNoController,
                         removeDecoration: true,
                         keyboardType: TextInputType.phone,
-                        maxLength: 15,
+                        maxLength: 12,
+                        paddingPrefix: EdgeInsets.zero,
+                        prefix: Column(
+                          children: [
+                            CountryCodePicker(
+                              key: _countryKey,
+                              onChanged: (country) {
+                                setState(() {
+                                  _countryCode = country.dialCode!;
+                                });
+                              },
+                              initialSelection: '+60',
+                              showCountryOnly: false,
+                              showOnlyCountryWhenClosed: false,
+                              alignLeft: false,
+                              textStyle: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                       const SizedBox(height: 20),
                       CustomTextField(
@@ -190,14 +222,14 @@ class _EditContactPageState extends State<EditContactPage> {
                         label: "organisation".tr,
                         controller: organisationController,
                         removeDecoration: true,
-                        maxLength: 40,
+                        maxLength: 30,
                       ),
                       const SizedBox(height: 20),
                       CustomTextField(
                         label: "address".tr,
                         controller: addressController,
                         removeDecoration: true,
-                        maxLines: 5,
+                        maxLines: 8,
                       ),
                       const SizedBox(height: 20),
                       CustomTextField(
@@ -205,7 +237,7 @@ class _EditContactPageState extends State<EditContactPage> {
                         controller: noteController,
                         removeDecoration: true,
                         keyboardType: TextInputType.phone,
-                        maxLines: 5,
+                        maxLines: 8,
                       ),
                       const SizedBox(height: 35),
                     ],
