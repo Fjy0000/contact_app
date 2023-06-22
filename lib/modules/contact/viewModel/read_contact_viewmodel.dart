@@ -6,7 +6,6 @@ import 'package:app2/utils/constants/enums.dart';
 import 'package:app2/utils/extension.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 class ReadContactViewModel extends BaseViewModel {
   RxList<ContactBean> contactList = RxList();

@@ -16,7 +16,6 @@ import 'package:app2/widgets/base_text.dart';
 import 'package:app2/widgets/base_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 class ContactDetailsPage extends StatefulWidget {
   const ContactDetailsPage({Key? key}) : super(key: key);
@@ -59,7 +58,6 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
   initBottomBarItem() {
     bottomBarItem.clear();
     bottomBarItem.addAll([
-      //BaseMenuItem(label: "Favourite", icon: "star_btn.svg", onTap: () {}),
       BaseMenuItem(
           label: "edit".tr,
           icon: "edit_btn.svg",
@@ -69,7 +67,6 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
               arguments: ContactArgument(viewModel.response.value),
             );
           }),
-      //BaseMenuItem(label: "Menu", icon: "menu_btn.svg", onTap: () {})
     ]);
   }
 
@@ -264,21 +261,23 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
   }
 
   Widget buildBottomBarItem(BaseMenuItem item) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: item.onTap,
-        child: Column(
-          children: [
-            imageAsset(
-                res: item.icon,
-                width: 20,
-                height: 20,
-                color: AppTheme.WHITE_COLOR),
-            const SizedBox(height: 5),
-            BaseText(item.label),
-          ],
+    return Expanded(
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: item.onTap,
+          child: Column(
+            children: [
+              imageAsset(
+                  res: item.icon,
+                  width: 20,
+                  height: 20,
+                  color: AppTheme.WHITE_COLOR),
+              const SizedBox(height: 5),
+              BaseText(item.label),
+            ],
+          ),
         ),
       ),
     );

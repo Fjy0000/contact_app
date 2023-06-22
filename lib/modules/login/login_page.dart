@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
-  bool isAgree = false;
+  bool isAgree = true;
 
   RxBool isObscure = true.obs;
 

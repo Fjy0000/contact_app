@@ -155,9 +155,6 @@ class _ContactPageState extends State<ContactPage> {
         Get.toNamed(GetPageRoutes.contactDetails,
             arguments: ContactArgument(data));
       },
-      onLongPressStart: (LongPressStartDetails details) {
-        showPopUpMenu(context, details.globalPosition, data);
-      },
       behavior: HitTestBehavior.opaque,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -177,97 +174,5 @@ class _ContactPageState extends State<ContactPage> {
         ),
       ),
     );
-  }
-
-  void showPopUpMenu(BuildContext context, Offset position, ContactBean data) {
-    //menu display position
-    final RenderBox overlay =
-        Overlay.of(context)!.context.findRenderObject() as RenderBox;
-    final RenderBox widgetBox = context.findRenderObject() as RenderBox;
-    final Offset widgetPosition = widgetBox.localToGlobal(Offset.zero);
-    final double dx = position.dx - widgetPosition.dx;
-    final double dy = position.dy - widgetPosition.dy;
-    final Offset popupPosition = Offset(dx, dy);
-
-    List<PopupMenuEntry> menuItems = [
-      PopupMenuItem(
-        value: 1,
-        child: Text('delete'.tr),
-      ),
-    ];
-
-    showMenu(
-      context: context,
-      position: RelativeRect.fromSize(
-        Rect.fromPoints(popupPosition, popupPosition),
-        overlay.size,
-      ),
-      items: menuItems,
-      elevation: 8.0,
-    ).then((value) {
-      if (value != null) {
-        showMenuItemDialog(value, data);
-      }
-    });
-  }
-
-  void showMenuItemDialog(int value, ContactBean data) {
-    switch (value) {
-      case 1:
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                backgroundColor: AppTheme.BG_COLOR,
-                title: BaseText(
-                  "delete_title".tr,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-                content: RichText(
-                  text: TextSpan(
-                    text: '${'delete_desc'.tr} : ( ',
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: data.name?.isNotEmpty == true
-                            ? data.name
-                            : data.contactNo,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
-                      const TextSpan(text: ' ) ?'),
-                    ],
-                  ),
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: BaseText(
-                      'cancel'.tr,
-                      color: AppTheme.HINT,
-                      fontSize: 16,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      viewModel.deleteContact(data);
-                    },
-                    child: BaseText(
-                      'delete'.tr,
-                      color: AppTheme.RED,
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
-              );
-            });
-        break;
-      default:
-        break;
-    }
   }
 }
