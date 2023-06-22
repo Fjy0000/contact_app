@@ -68,7 +68,10 @@ class _AddContactPageState extends State<AddContactPage> {
   }
 
   void save() {
-    if (contactNoController.text.isEmpty) {
+    if (!emailController.text.contains("@") &&
+        !emailController.text.contains(".com")) {
+      showToast("input_email_error".tr);
+    } else if (contactNoController.text.isEmpty) {
       showToast('input_contactNo_error'.tr);
     } else {
       viewModel.saveContact(
@@ -212,7 +215,7 @@ class _AddContactPageState extends State<AddContactPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-           BaseText(
+          BaseText(
             'choose_profile_photo'.tr,
             fontSize: 24,
           ),

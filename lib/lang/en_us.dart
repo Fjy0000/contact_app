@@ -27,6 +27,7 @@ const Map<String, String> enUS = {
   "nothing_now": "There's nothing for now",
   "invalid_qr_code": "Invalid QR Code",
   "input_contactNo_error": "Required fill up CONTACT NO",
+  "input_email_error": "Invalid email format",
   "add_new_contact": "Add New Contact",
   "login_error_1": "Please fill in all fields",
   "login_error_2": "email or password wrong",

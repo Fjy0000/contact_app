@@ -93,7 +93,10 @@ class _EditContactPageState extends State<EditContactPage> {
   }
 
   void update() {
-    if (contactNoController.text.isEmpty) {
+    if (!emailController.text.contains("@") &&
+        !emailController.text.contains(".com")) {
+      showToast("input_email_error".tr);
+    } else if (contactNoController.text.isEmpty) {
       showToast('input_contactNo_error'.tr);
     } else {
       viewModel.editContact(

@@ -23,8 +23,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   bool isAgree = true;
 
@@ -32,8 +32,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    email.text = "abc@gmail.com";
-    password.text = "123456";
+    emailController.text = "abc@gmail.com";
+    passwordController.text = "123456";
 
     super.initState();
   }
@@ -55,15 +55,20 @@ class _LoginPageState extends State<LoginPage> {
   void login() {
     if (isAgree != true) {
       showToast("login_error_3".tr);
-    } else if (email.text.isEmpty || password.text.isEmpty) {
+    } else if (!emailController.text.contains("@") &&
+        !emailController.text.contains(".com")) {
+      showToast("input_email_error".tr);
+    } else if (emailController.text.isEmpty ||
+        passwordController.text.isEmpty) {
       showToast("login_error_1".tr);
       return;
-    } else if (email.text != "abc@gmail.com" || password.text != "123456") {
+    } else if (emailController.text != "abc@gmail.com" ||
+        passwordController.text != "123456") {
       showToast("${"login_error_2".tr} !!!");
       return;
     } else {
       Get.offNamed(GetPageRoutes.contact);
-      box.write(StoreBox.USER_LOGIN, email.text);
+      box.write(StoreBox.USER_LOGIN, emailController.text);
     }
   }
 
@@ -108,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 35),
                   BaseTextField(
                     hinText: 'email_hint'.tr,
-                    controller: email,
+                    controller: emailController,
                     baseFontWeight: FontWeight.bold,
                     baseText: 'email'.tr,
                     isDisable: true,
@@ -118,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   BaseTextField(
                     hinText: 'password_hint'.tr,
-                    controller: password,
+                    controller: passwordController,
                     obscureText: isObscure.value,
                     baseFontWeight: FontWeight.bold,
                     baseText: 'password'.tr,
