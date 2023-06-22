@@ -52,17 +52,23 @@ class _ContactQrPageState extends State<ContactQrPage> {
     super.dispose();
   }
 
-  Future<void> share() async{
+  Future<void> share() async {
+    //capture the specific widget
     RenderRepaintBoundary? boundary =
-    globalKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
+        globalKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
+    // transfer to image
     final image = await boundary.toImage();
+    //change to png format
     ByteData? byteData = await image.toByteData(format: ImageByteFormat.png);
+    //represents the image in binary form
     Uint8List? pngBytes = byteData?.buffer.asUint8List();
 
+    //store temporarily
     final tempDir = await getTemporaryDirectory();
     File imgFile = File('${tempDir.path}/image.jpg');
     imgFile.writeAsBytes(pngBytes!);
 
+    //share
     Share.shareFiles([imgFile.path]);
   }
 

@@ -131,7 +131,9 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
 
   Widget buildBody(ContactBean? data) {
     return LayoutBuilder(builder: (context, constraint) {
+      //enforce a maximum height constraint on its child widget
       return ConstrainedBox(
+        //which ensures that the child widget does not exceed the available height
         constraints: BoxConstraints(maxHeight: constraint.minHeight),
         child: Column(
           children: [
