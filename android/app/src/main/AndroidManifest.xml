@@ -15,7 +15,7 @@
     </queries>
 
    <application
-        android:label="app2"
+        android:label="One Contact"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

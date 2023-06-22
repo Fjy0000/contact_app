@@ -62,6 +62,7 @@ class _LoginPageState extends State<LoginPage> {
       return;
     } else {
       Get.offNamed(GetPageRoutes.contact);
+
     }
   }
 

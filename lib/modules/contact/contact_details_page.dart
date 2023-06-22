@@ -66,7 +66,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
           onTap: () {
             Get.toNamed(
               GetPageRoutes.editContact,
-              arguments: ContactArgument(arguments.contact),
+              arguments: ContactArgument(viewModel.response.value),
             );
           }),
       //BaseMenuItem(label: "Menu", icon: "menu_btn.svg", onTap: () {})
@@ -107,7 +107,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                     IconButton(
                       onPressed: () {
                         Get.toNamed(GetPageRoutes.contactQr,
-                            arguments: ContactArgument(arguments.contact));
+                            arguments: ContactArgument(data));
                       },
                       icon: const Icon(
                         Icons.qr_code,

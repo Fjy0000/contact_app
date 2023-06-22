@@ -129,6 +129,7 @@ class _ContactPageState extends State<ContactPage> {
                 _refresh();
               },
               child: ListView.separated(
+                padding: const EdgeInsets.only(bottom: 15),
                 itemCount: viewModel.contactList.length,
                 separatorBuilder: (BuildContext context, int index) =>
                     const SizedBox(height: 25),
@@ -218,7 +219,7 @@ class _ContactPageState extends State<ContactPage> {
             builder: (BuildContext context) {
               return AlertDialog(
                 backgroundColor: AppTheme.BG_COLOR,
-                title:  BaseText(
+                title: BaseText(
                   "delete_title".tr,
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -245,7 +246,7 @@ class _ContactPageState extends State<ContactPage> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child:  BaseText(
+                    child: BaseText(
                       'cancel'.tr,
                       color: AppTheme.HINT,
                       fontSize: 16,
@@ -255,7 +256,7 @@ class _ContactPageState extends State<ContactPage> {
                     onPressed: () {
                       viewModel.deleteContact(data);
                     },
-                    child:  BaseText(
+                    child: BaseText(
                       'delete'.tr,
                       color: AppTheme.RED,
                       fontSize: 16,
