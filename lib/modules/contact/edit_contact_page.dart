@@ -227,7 +227,7 @@ class _EditContactPageState extends State<EditContactPage> {
 
   Widget bottomSheet() {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.30,
+      height: MediaQuery.of(context).size.height * 0.35,
       padding: const EdgeInsets.all(15.0),
       decoration: const BoxDecoration(
         color: Color(0xff282d3f),
