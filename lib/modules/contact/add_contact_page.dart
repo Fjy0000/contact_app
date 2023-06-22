@@ -73,7 +73,7 @@ class _AddContactPageState extends State<AddContactPage> {
   }
 
   void save() {
-    final fullContactNo = _countryCode.toString() + contactNoController.text;
+    final fullContactNo = "$_countryCode ${contactNoController.text}";
 
     if (emailController.text != '') {
       if (!emailController.text.contains("@") &&

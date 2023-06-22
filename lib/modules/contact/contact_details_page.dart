@@ -16,6 +16,7 @@ import 'package:app2/widgets/base_text.dart';
 import 'package:app2/widgets/base_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactDetailsPage extends StatefulWidget {
   const ContactDetailsPage({Key? key}) : super(key: key);
@@ -239,7 +240,18 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  final Uri phone = Uri(
+                    scheme: 'tel',
+                    path: data?.contactNo,
+                  );
+                  var url = phone.toString();
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    throw 'Could not launch $url';
+                  }
+                },
                 icon: const Icon(
                   Icons.phone,
                   color: Colors.blue,
@@ -247,7 +259,18 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
               ),
               const SizedBox(width: 5),
               IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  final Uri email = Uri(
+                    scheme: 'mailto',
+                    path: data?.email,
+                  );
+                  var url = email.toString();
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    throw 'Could not launch $url';
+                  }
+                },
                 icon: const Icon(
                   Icons.chat,
                   color: Colors.blue,

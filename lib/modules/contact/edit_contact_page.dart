@@ -98,7 +98,7 @@ class _EditContactPageState extends State<EditContactPage> {
   }
 
   void update() {
-    final fullContactNo = _countryCode + contactNoController.text;
+    final fullContactNo = "$_countryCode ${contactNoController.text}";
 
     if (emailController.text != '') {
       if (!emailController.text.contains("@") &&
