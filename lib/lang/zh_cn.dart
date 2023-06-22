@@ -45,4 +45,9 @@ const Map<String, String> zhCN = {
   "contact_qr": "联络人的二维码",
   "update_contact_details": "更新联系方式",
   "update": "更新",
+  "upload_paused": "上传图片已暂停",
+  "upload_canceled": "上传图片已取消",
+  "upload_error": "保存联系人失败",
+  "added_contact": "添加成功",
+  "deleted_contact": "删除成功",
 };

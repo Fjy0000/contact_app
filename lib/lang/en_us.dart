@@ -45,4 +45,9 @@ const Map<String, String> enUS = {
   "contact_qr": "Contact QR Code",
   "update_contact_details": "Update Contact Details",
   "update": "Update",
+  "upload_paused": "upload image paused",
+  "upload_canceled": "upload image canceled",
+  "upload_error": "save contact fail",
+  "added_contact": "Successfully Added",
+  "deleted_contact": "Successfully Deleted",
 };

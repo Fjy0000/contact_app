@@ -62,7 +62,7 @@ class ReadContactViewModel extends BaseViewModel {
 
     deleteDoc.delete().request(onSuccess: (v) async {
       storageFile.delete();
-      showToast("Successfully Delete!");
+      showToast("${"deleted_contact".tr} !!!");
       eventBus?.fire(BaseEventBus(EventBusAction.REFRESH_CONTACT));
       Get.back();
     });

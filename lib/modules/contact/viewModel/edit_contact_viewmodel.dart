@@ -31,13 +31,13 @@ class EditContactViewModel extends BaseViewModel {
             }
             break;
           case TaskState.paused:
-            print("upload image paused");
+            print("upload_paused".tr);
             break;
           case TaskState.canceled:
-            print("upload image canceled");
+            print("upload_canceled".tr);
             break;
           case TaskState.error:
-            showToast('save contact fail');
+            showToast("upload_error".tr);
             break;
           case TaskState.success:
             avatarUrl = await refUploadAvatarName.getDownloadURL();
@@ -51,7 +51,7 @@ class EditContactViewModel extends BaseViewModel {
               'imagePath': avatarUrl,
             }).request(onSuccess: (value) {
               dismissDialog();
-              showToast("Successfully Updated!");
+              showToast("${"added_contact".tr} !!!");
               eventBus?.fire(BaseEventBus(EventBusAction.REFRESH_CONTACT));
               Get.back();
             });
@@ -67,7 +67,7 @@ class EditContactViewModel extends BaseViewModel {
         'address': contact.address,
         'note': contact.note,
       }).request(onSuccess: (value) {
-        showToast("Successfully Updated!");
+        showToast("${"added_contact".tr} !!!");
         eventBus?.fire(BaseEventBus(EventBusAction.REFRESH_CONTACT));
         Get.back();
       });

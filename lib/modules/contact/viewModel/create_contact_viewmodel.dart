@@ -31,13 +31,13 @@ class CreateContactViewModel extends BaseViewModel {
             }
             break;
           case TaskState.paused:
-            print("upload image paused");
+            print("upload_paused".tr);
             break;
           case TaskState.canceled:
-            print("upload image canceled");
+            print("upload_canceled".tr);
             break;
           case TaskState.error:
-            showToast('save contact fail');
+            showToast("upload_error".tr);
             break;
           case TaskState.success:
             avatarUrl = await refUploadAvatarName.getDownloadURL();
@@ -57,7 +57,7 @@ class CreateContactViewModel extends BaseViewModel {
             await contactDoc.set(json).request(
               onSuccess: (value) {
                 dismissDialog();
-                showToast("Successfully Added!");
+                showToast("${"added_contact".tr} !!!");
                 eventBus?.fire(BaseEventBus(EventBusAction.REFRESH_CONTACT));
                 Get.back();
               },
@@ -81,7 +81,7 @@ class CreateContactViewModel extends BaseViewModel {
 
       await contactDoc.set(json).request(
         onSuccess: (value) {
-          showToast("Successfully Added!");
+          showToast("${"added_contact".tr} !!!");
           eventBus?.fire(BaseEventBus(EventBusAction.REFRESH_CONTACT));
           Get.back();
         },
