@@ -1,10 +1,13 @@
+import 'package:app2/base/localization_service.dart';
 import 'package:app2/utils/constants/constant.dart';
+import 'package:app2/utils/constants/enums.dart';
 import 'package:app2/utils/extension.dart';
 import 'package:app2/utils/get_page_router.dart';
 import 'package:app2/utils/image_utils.dart';
 import 'package:app2/widgets/base_app_bar.dart';
 import 'package:app2/widgets/base_button.dart';
 import 'package:app2/widgets/base_scaffold.dart';
+import 'package:app2/widgets/base_text.dart';
 import 'package:app2/widgets/base_text_field.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +66,33 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      appBar: BaseAppBar('login'.tr),
+      appBar: BaseAppBar(
+        'login'.tr,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 25),
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                Get.toNamed(GetPageRoutes.changeLanguage);
+              },
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: const BoxDecoration(
+                  color: Color(0x33e8e8e8),
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: BaseText(
+                      LocalizationService.getStoreLanguage() == LangType.EN
+                          ? "EN"
+                          : "中文"),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
       body: Obx(() {
         return SafeArea(
           child: Padding(
