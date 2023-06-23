@@ -73,23 +73,23 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
     ]);
   }
 
-  Future<void> requestPhoneCall(ContactBean? data) async {
-    requestPermission([Permission.phone],
-        customMsg: 'permission_required_phone'.tr, onSuccess: (value) async {
-      if (value.isGranted) {
-        final Uri phone = Uri(
-          scheme: 'tel',
-          path: data?.contactNo,
-        );
-        var url = phone.toString();
-        if (await canLaunch(url)) {
-          await launch(url);
-        } else {
-          throw '${'cannot_launch'.tr} $url';
-        }
-      }
-    });
-  }
+  // Future<void> requestPhoneCall(ContactBean? data) async {
+  //   requestPermission([Permission.phone],
+  //       customMsg: 'permission_required_phone'.tr, onSuccess: (value) async {
+  //     if (value.isGranted) {
+  //       final Uri phone = Uri(
+  //         scheme: 'tel',
+  //         path: data?.contactNo,
+  //       );
+  //       var url = phone.toString();
+  //       if (await canLaunch(url)) {
+  //         await launch(url);
+  //       } else {
+  //         throw '${'cannot_launch'.tr} $url';
+  //       }
+  //     }
+  //   });
+  // }
 
   @override
   void dispose() {
@@ -260,8 +260,18 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                onPressed: () {
-                  requestPhoneCall(data);
+                onPressed: () async {
+                  // requestPhoneCall(data);
+                  final Uri phone = Uri(
+                    scheme: 'tel',
+                    path: data?.contactNo,
+                  );
+                  var url = phone.toString();
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    throw '${'cannot_launch'.tr} $url';
+                  }
                 },
                 icon: const Icon(
                   Icons.phone,
