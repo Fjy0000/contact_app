@@ -52,4 +52,6 @@ const Map<String, String> zhCN = {
   "upload_error": "保存联系人失败",
   "added_contact": "添加成功",
   "deleted_contact": "删除成功",
+  "not_found_email": "没有电子邮件地址",
+  "cannot_launch": "无法启动",
 };

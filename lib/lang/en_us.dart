@@ -52,4 +52,6 @@ const Map<String, String> enUS = {
   "upload_error": "save contact fail",
   "added_contact": "Successfully Added",
   "deleted_contact": "Successfully Deleted",
+  "not_found_email": "Not found email address",
+  "cannot_launch": "Could not launch",
 };

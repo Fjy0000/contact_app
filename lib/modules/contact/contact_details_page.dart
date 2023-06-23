@@ -249,7 +249,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                   if (await canLaunch(url)) {
                     await launch(url);
                   } else {
-                    throw 'Could not launch $url';
+                    throw '${'cannot_launch'.tr} $url';
                   }
                 },
                 icon: const Icon(
@@ -260,15 +260,19 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
               const SizedBox(width: 5),
               IconButton(
                 onPressed: () async {
-                  final Uri email = Uri(
-                    scheme: 'mailto',
-                    path: data?.email,
-                  );
-                  var url = email.toString();
-                  if (await canLaunch(url)) {
-                    await launch(url);
+                  if (data?.email != '') {
+                    final Uri email = Uri(
+                      scheme: 'mailto',
+                      path: data?.email,
+                    );
+                    var url = email.toString();
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    } else {
+                      throw '${'cannot_launch'.tr} $url';
+                    }
                   } else {
-                    throw 'Could not launch $url';
+                    showToast('${'not_found_email'.tr} !!!');
                   }
                 },
                 icon: const Icon(

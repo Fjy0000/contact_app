@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
-      throw "Could not launch $url";
+      throw "${'cannot_launch'.tr} $url";
     }
   }
 
