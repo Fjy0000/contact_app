@@ -120,7 +120,7 @@ class _EditContactPageState extends State<EditContactPage> {
       }
     } else if (contactNoController.text.isEmpty) {
       showToast('input_contactNo_error'.tr);
-    } else if (fullContactNo.length <= 11) {
+    } else if (fullContactNo.length < 11) {
       showToast('input_contactNo_error2'.tr);
     } else {
       viewModel.editContact(

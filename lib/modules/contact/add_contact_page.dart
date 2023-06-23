@@ -82,7 +82,7 @@ class _AddContactPageState extends State<AddContactPage> {
       }
     } else if (contactNoController.text.isEmpty) {
       showToast('input_contactNo_error'.tr);
-    } else if (fullContactNo.length <= 11) {
+    } else if (fullContactNo.length < 11) {
       showToast('input_contactNo_error2'.tr);
     } else {
       viewModel.saveContact(
@@ -235,7 +235,7 @@ class _AddContactPageState extends State<AddContactPage> {
 
   Widget bottomSheet() {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.30,
+      height: MediaQuery.of(context).size.height * 0.35,
       padding: const EdgeInsets.all(15.0),
       decoration: const BoxDecoration(
         color: Color(0xff282d3f),

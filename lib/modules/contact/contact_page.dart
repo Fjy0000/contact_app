@@ -111,6 +111,7 @@ class _ContactPageState extends State<ContactPage> {
             if (value == 0) {
               Get.toNamed(GetPageRoutes.changeLanguage);
             } else if (value == 1) {
+              box.remove(StoreBox.USER_LOGIN);
               Get.offNamed(GetPageRoutes.login);
             }
           }),

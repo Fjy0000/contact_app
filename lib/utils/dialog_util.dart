@@ -17,10 +17,13 @@ void showLoadingDialog() {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
-                children: const [
+                children: [
                   CircularProgressIndicator(),
                   SizedBox(height: 15),
-                  Text("Loading....", style: TextStyle(fontSize: 18))
+                  Text(
+                    "${'loading'.tr}....",
+                    style: TextStyle(fontSize: 18),
+                  ),
                 ],
               ),
             ),
@@ -106,69 +109,69 @@ void showAlertDialog(
   );
 }
 
-showCustomDialog(
-  BuildContext context,
-  Widget? content, {
-  bool isCancelable = false,
-}) {
-  AlertDialog alertDialog = AlertDialog(
-    contentPadding: EdgeInsets.zero,
-    backgroundColor: Colors.transparent,
-    insetPadding: const EdgeInsets.symmetric(horizontal: 32),
-    content: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-            width: MediaQuery.of(context).size.width,
-            // height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(22),
-              color: Colors.transparent,
-            ),
-            child: content),
-      ],
-    ),
-  );
-
-  showDialog(
-    context: context,
-    barrierColor: Colors.black54,
-    barrierDismissible: isCancelable,
-    builder: (BuildContext context) {
-      return alertDialog;
-    },
-  );
-}
-
-Future<void> showCustomBottomSheet(
-  BuildContext context,
-  Widget content,
-) {
-  FocusManager.instance.primaryFocus?.unfocus();
-  return showModalBottomSheet<void>(
-    context: context,
-    isScrollControlled: true,
-    barrierColor: Colors.black.withOpacity(0.5),
-    backgroundColor: Colors.transparent,
-    builder: (BuildContext context) {
-      return Container(
-        constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height * 0.6,
-        ),
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          color: Colors.white,
-        ),
-        clipBehavior: Clip.hardEdge,
-        child: content,
-      );
-    },
-  );
-}
+// showCustomDialog(
+//   BuildContext context,
+//   Widget? content, {
+//   bool isCancelable = false,
+// }) {
+//   AlertDialog alertDialog = AlertDialog(
+//     contentPadding: EdgeInsets.zero,
+//     backgroundColor: Colors.transparent,
+//     insetPadding: const EdgeInsets.symmetric(horizontal: 32),
+//     content: Column(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       mainAxisSize: MainAxisSize.min,
+//       children: [
+//         Container(
+//             width: MediaQuery.of(context).size.width,
+//             // height: MediaQuery.of(context).size.height,
+//             decoration: BoxDecoration(
+//               borderRadius: BorderRadius.circular(22),
+//               color: Colors.transparent,
+//             ),
+//             child: content),
+//       ],
+//     ),
+//   );
+//
+//   showDialog(
+//     context: context,
+//     barrierColor: Colors.black54,
+//     barrierDismissible: isCancelable,
+//     builder: (BuildContext context) {
+//       return alertDialog;
+//     },
+//   );
+// }
+//
+// Future<void> showCustomBottomSheet(
+//   BuildContext context,
+//   Widget content,
+// ) {
+//   FocusManager.instance.primaryFocus?.unfocus();
+//   return showModalBottomSheet<void>(
+//     context: context,
+//     isScrollControlled: true,
+//     barrierColor: Colors.black.withOpacity(0.5),
+//     backgroundColor: Colors.transparent,
+//     builder: (BuildContext context) {
+//       return Container(
+//         constraints: BoxConstraints(
+//           maxHeight: MediaQuery.of(context).size.height * 0.6,
+//         ),
+//         decoration: const BoxDecoration(
+//           borderRadius: BorderRadius.only(
+//             topLeft: Radius.circular(20),
+//             topRight: Radius.circular(20),
+//           ),
+//           color: Colors.white,
+//         ),
+//         clipBehavior: Clip.hardEdge,
+//         child: content,
+//       );
+//     },
+//   );
+// }
 
 // Future<void> showDatePickerDialog(BuildContext context, String title, Function(DateTime) onDateTimeCallBack, {DateTime? defaultDateTime}) {
 //   DateTime selectedDateTime = defaultDateTime ?? DateTime.now();
@@ -329,44 +332,44 @@ Future<void> showCustomBottomSheet(
 //   );
 // }
 
-showSelectionDialog(BuildContext context, List<Widget> content) {
-  AlertDialog alertDialog = AlertDialog(
-    contentPadding: EdgeInsets.zero,
-    backgroundColor: Colors.transparent,
-    elevation: 0,
-    insetPadding: EdgeInsets.zero,
-    content: GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: () {
-        dismissDialog();
-      },
-      child: Center(
-        child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: Colors.white,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: content,
-            )),
-      ),
-    ),
-  );
-
-  showDialog(
-    context: context,
-    barrierColor: Colors.black.withOpacity(0.7),
-    barrierDismissible: true,
-    builder: (BuildContext context) {
-      return alertDialog;
-    },
-  );
-}
-
-enum AlertDialogIcon { warning, success, failed, none }
+// showSelectionDialog(BuildContext context, List<Widget> content) {
+//   AlertDialog alertDialog = AlertDialog(
+//     contentPadding: EdgeInsets.zero,
+//     backgroundColor: Colors.transparent,
+//     elevation: 0,
+//     insetPadding: EdgeInsets.zero,
+//     content: GestureDetector(
+//       behavior: HitTestBehavior.opaque,
+//       onTap: () {
+//         dismissDialog();
+//       },
+//       child: Center(
+//         child: Container(
+//             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
+//             decoration: BoxDecoration(
+//               borderRadius: BorderRadius.circular(12),
+//               color: Colors.white,
+//             ),
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               mainAxisSize: MainAxisSize.min,
+//               children: content,
+//             )),
+//       ),
+//     ),
+//   );
+//
+//   showDialog(
+//     context: context,
+//     barrierColor: Colors.black.withOpacity(0.7),
+//     barrierDismissible: true,
+//     builder: (BuildContext context) {
+//       return alertDialog;
+//     },
+//   );
+// }
+//
+// enum AlertDialogIcon { warning, success, failed, none }
 
 // extension AlertDialogIconEx on AlertDialogIcon {
 //   String get icon {
