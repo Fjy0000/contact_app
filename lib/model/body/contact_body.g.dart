@@ -26,10 +26,11 @@ ContactBean _$ContactBeanFromJson(Map<String, dynamic> json) => ContactBean(
       address: json['address'] as String?,
       note: json['note'] as String?,
       imagePath: json['imagePath'] as String?,
-    );
+    )..isShowSuspension = json['isShowSuspension'] as bool;
 
 Map<String, dynamic> _$ContactBeanToJson(ContactBean instance) =>
     <String, dynamic>{
+      'isShowSuspension': instance.isShowSuspension,
       'id': instance.id,
       'name': instance.name,
       'contactNo': instance.contactNo,

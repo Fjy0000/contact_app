@@ -74,20 +74,20 @@ class _AddContactPageState extends State<AddContactPage> {
   }
 
   void save() {
-    final fullContactNo = "$_countryCode ${contactNoController.text}";
+    final finalContactNo = "$_countryCode ${contactNoController.text}";
 
     if (emailController.text != '' &&
         !EmailValidator.validate(emailController.text)) {
       showToast("input_email_error".tr);
     } else if (contactNoController.text.isEmpty) {
       showToast('input_contactNo_error'.tr);
-    } else if (fullContactNo.length < 11) {
+    } else if (finalContactNo.length < 11) {
       showToast('input_contactNo_error2'.tr);
     } else {
       viewModel.saveContact(
         ContactBean(
           name: nameController.text,
-          contactNo: fullContactNo,
+          contactNo: finalContactNo,
           email: emailController.text,
           organisation: organisationController.text,
           address: addressController.text,
@@ -152,6 +152,7 @@ class _AddContactPageState extends State<AddContactPage> {
                         controller: nameController,
                         removeDecoration: true,
                         maxLength: 15,
+                        prefix: Icon(Icons.person, color: Colors.white),
                       ),
                       const SizedBox(height: 20),
                       CustomTextField(
@@ -160,9 +161,10 @@ class _AddContactPageState extends State<AddContactPage> {
                         removeDecoration: true,
                         keyboardType: TextInputType.phone,
                         maxLength: 12,
-                        paddingPrefix: EdgeInsets.zero,
-                        prefix: Column(
+                        //paddingPrefix: EdgeInsets.zero,
+                        prefix: Row(
                           children: [
+                            Icon(Icons.phone, color: Colors.white),
                             CountryCodePicker(
                               key: _countryKey,
                               onChanged: (country) {
@@ -172,6 +174,7 @@ class _AddContactPageState extends State<AddContactPage> {
                               },
                               initialSelection: '+60',
                               showCountryOnly: false,
+                              showFlagMain: false,
                               showOnlyCountryWhenClosed: false,
                               alignLeft: false,
                               textStyle: const TextStyle(
@@ -189,6 +192,7 @@ class _AddContactPageState extends State<AddContactPage> {
                         removeDecoration: true,
                         keyboardType: TextInputType.emailAddress,
                         maxLength: 45,
+                        prefix: Icon(Icons.mail, color: Colors.white),
                       ),
                       const SizedBox(height: 20),
                       CustomTextField(
@@ -196,6 +200,7 @@ class _AddContactPageState extends State<AddContactPage> {
                         controller: organisationController,
                         removeDecoration: true,
                         maxLength: 30,
+                        prefix: Icon(Icons.location_city, color: Colors.white),
                       ),
                       const SizedBox(height: 20),
                       CustomTextField(
@@ -203,6 +208,7 @@ class _AddContactPageState extends State<AddContactPage> {
                         controller: addressController,
                         removeDecoration: true,
                         maxLines: 8,
+                        prefix: Icon(Icons.maps_home_work, color: Colors.white),
                       ),
                       const SizedBox(height: 20),
                       CustomTextField(
@@ -210,6 +216,7 @@ class _AddContactPageState extends State<AddContactPage> {
                         controller: noteController,
                         removeDecoration: true,
                         maxLines: 8,
+                        prefix: Icon(Icons.notes, color: Colors.white),
                       ),
                       const SizedBox(height: 35),
                     ],
