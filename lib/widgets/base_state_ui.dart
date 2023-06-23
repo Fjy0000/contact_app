@@ -36,8 +36,8 @@ class BaseAppStateUi extends StatelessWidget {
       return comingSoonUi();
     }
 
-    return const Center(
-      child: BaseText('No app state specified ! !'),
+    return Center(
+      child: BaseText('${'no_app_state'.tr} !!'),
     );
   }
 
@@ -52,7 +52,7 @@ class BaseAppStateUi extends StatelessWidget {
           BaseText('nothing_now'.tr, fontSize: 14, color: AppTheme.HINT),
           const SizedBox(height: 20),
           BaseButton(
-            'Refresh',
+            'refresh'.tr,
             margin: const EdgeInsets.symmetric(horizontal: 35),
             textSize: 12,
             onPressed: onPressed,
@@ -67,15 +67,15 @@ class BaseAppStateUi extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const BaseText(
-            'Failed',
+           BaseText(
+            'failed'.tr,
             fontSize: 24,
           ),
           const SizedBox(
             height: 20,
           ),
           BaseButton(
-            'Retry',
+            'retry'.tr,
             textSize: 16,
             onPressed: onPressed,
           ),
@@ -85,8 +85,8 @@ class BaseAppStateUi extends StatelessWidget {
   }
 
   Widget comingSoonUi() {
-    return const Center(
-      child: BaseText('Coming Soon'),
+    return Center(
+      child: BaseText('${'coming_soon'.tr} !'),
     );
   }
 }

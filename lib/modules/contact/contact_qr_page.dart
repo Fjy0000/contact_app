@@ -114,7 +114,7 @@ class _ContactQrPageState extends State<ContactQrPage> {
           ),
           const SizedBox(height: 15),
           BaseText(
-            arguments.contact?.name != "" ? arguments.contact?.name : "-",
+            arguments.contact?.name != "" ? arguments.contact?.name : arguments.contact?.contactNo,
             fontSize: 18,
             fontWeight: FontWeight.w500,
           ),
