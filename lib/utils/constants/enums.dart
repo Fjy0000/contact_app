@@ -1,7 +1,6 @@
 enum LangType {
   EN,
   CN,
-  IN,
 }
 
 enum EventBusAction {

@@ -25,9 +25,9 @@ class LocalizationService extends Translations {
   // Translations are separated maps in `lang` file
   @override
   Map<String, Map<String, String>> get keys => {
-    'en_US': enUS,
-    'zh_CN': zhCN,
-  };
+        'en_US': enUS,
+        'zh_CN': zhCN,
+      };
 
   static Locale getLanguage() {
     if (getStoreLanguage() == LangType.CN) {
@@ -52,8 +52,6 @@ class LocalizationService extends Translations {
       var language = box?.read(StoreBox.LANGUAGE);
       if (language == LangType.EN.toString()) {
         return 'English';
-      } else if (language == LangType.IN.toString()) {
-        return 'Bahasa Indonesia';
       }
     }
     return '中文';
