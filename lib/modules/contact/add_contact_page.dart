@@ -189,7 +189,7 @@ class _AddContactPageState extends State<AddContactPage> {
                         controller: emailController,
                         removeDecoration: true,
                         keyboardType: TextInputType.emailAddress,
-                        maxLength: 20,
+                        maxLength: 45,
                       ),
                       const SizedBox(height: 20),
                       CustomTextField(

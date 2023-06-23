@@ -217,13 +217,13 @@ class _LoginPageState extends State<LoginPage> {
                 res: 'eye.svg',
                 width: 28,
                 height: 28,
-                color: Colors.deepPurple,
+                color: Colors.black,
               )
             : imageAsset(
                 res: 'eye_off.svg',
                 width: 28,
                 height: 28,
-                color: Colors.deepPurple,
+                color: Colors.black,
               ),
       ),
     );
