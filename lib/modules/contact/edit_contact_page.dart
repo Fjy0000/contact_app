@@ -9,6 +9,7 @@ import 'package:app2/widgets/base_scaffold.dart';
 import 'package:app2/widgets/base_text.dart';
 import 'package:app2/widgets/custom_textfield.dart';
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -113,11 +114,9 @@ class _EditContactPageState extends State<EditContactPage> {
   void update() {
     final fullContactNo = "$_countryCode ${contactNoController.text}";
 
-    if (emailController.text != '') {
-      if (!emailController.text.contains("@") &&
-          !emailController.text.contains(".com")) {
-        showToast("input_email_error".tr);
-      }
+    if (emailController.text != '' &&
+        !EmailValidator.validate(emailController.text)) {
+      showToast("input_email_error".tr);
     } else if (contactNoController.text.isEmpty) {
       showToast('input_contactNo_error'.tr);
     } else if (fullContactNo.length < 11) {
