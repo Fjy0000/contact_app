@@ -1,3 +1,4 @@
+import 'package:azlistview/azlistview.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'contact_body.g.dart';
@@ -15,7 +16,7 @@ class ContactBody {
 }
 
 @JsonSerializable()
-class ContactBean {
+class ContactBean with ISuspensionBean {
   String? id;
   String? name;
   String? contactNo;
@@ -39,4 +40,19 @@ class ContactBean {
       _$ContactBeanFromJson(json);
 
   Map<String, dynamic> toJson() => _$ContactBeanToJson(this);
+
+  String? get firstLetter {
+    String? str = name?.substring(0, 1).toUpperCase();
+
+    if (!RegExp(r'[a-zA-Z]').hasMatch(str ?? '')) {
+      str = '#';
+    }
+
+    return str;
+  }
+
+  @override
+  String getSuspensionTag() {
+    return firstLetter ?? '';
+  }
 }

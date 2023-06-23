@@ -15,6 +15,7 @@ import 'package:app2/widgets/base_scaffold.dart';
 import 'package:app2/widgets/base_state_ui.dart';
 import 'package:app2/widgets/base_text.dart';
 import 'package:app2/widgets/base_avatar.dart';
+import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
@@ -60,6 +61,61 @@ class _ContactPageState extends State<ContactPage> {
 
   void _refresh() {
     initApi();
+  }
+
+  Future<void> deleteDialog(ContactBean data) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: AppTheme.BG_COLOR,
+          title: BaseText(
+            "delete_title".tr,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+          content: RichText(
+            text: TextSpan(
+              text: '${'delete_desc'.tr} : ( ',
+              children: <TextSpan>[
+                TextSpan(
+                  text: data.name?.isNotEmpty == true
+                      ? data.name
+                      : data.contactNo,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+                const TextSpan(text: ' ) ?'),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: BaseText(
+                'cancel'.tr,
+                color: AppTheme.HINT,
+                fontSize: 16,
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                viewModel.deleteContact(data);
+              },
+              child: BaseText(
+                'delete'.tr,
+                color: AppTheme.RED,
+                fontSize: 16,
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -130,11 +186,10 @@ class _ContactPageState extends State<ContactPage> {
               onRefresh: () async {
                 _refresh();
               },
-              child: ListView.separated(
-                padding: const EdgeInsets.only(bottom: 15),
+              child: AzListView(
+                padding: const EdgeInsets.all(15),
+                data: viewModel.contactList,
                 itemCount: viewModel.contactList.length,
-                separatorBuilder: (BuildContext context, int index) =>
-                    const SizedBox(height: 25),
                 itemBuilder: (BuildContext context, int index) {
                   return Column(
                     children: [
@@ -143,7 +198,43 @@ class _ContactPageState extends State<ContactPage> {
                     ],
                   );
                 },
+                indexHintBuilder: (context, hint) => Container(
+                  alignment: Alignment.center,
+                  height: 60,
+                  width: 60,
+                  decoration: BoxDecoration(
+                      color: Color(0xff2575fc), shape: BoxShape.circle),
+                  child: BaseText(
+                    hint,
+                    color: AppTheme.WHITE_COLOR,
+                    fontSize: 30,
+                  ),
+                ),
+                indexBarOptions: IndexBarOptions(
+                  needRebuild: true,
+                  indexHintAlignment: Alignment.centerRight,
+                  indexHintOffset: Offset(-16, 0),
+                  selectTextStyle: TextStyle(
+                      color: AppTheme.WHITE_COLOR, fontWeight: FontWeight.bold),
+                  selectItemDecoration: BoxDecoration(
+                      color: Color(0xff2575fc), shape: BoxShape.circle),
+                ),
               ),
+
+              // child: ListView.separated(
+              //   padding: const EdgeInsets.only(bottom: 15),
+              //   itemCount: viewModel.contactList.length,
+              //   separatorBuilder: (BuildContext context, int index) =>
+              //       const SizedBox(height: 25),
+              //   itemBuilder: (BuildContext context, int index) {
+              //     return Column(
+              //       children: [
+              //         if (index == 0) const SizedBox(height: 10),
+              //         item(viewModel.contactList[index]),
+              //       ],
+              //     );
+              //   },
+              // ),
             ),
           );
         },
@@ -152,121 +243,95 @@ class _ContactPageState extends State<ContactPage> {
   }
 
   Widget item(ContactBean data) {
-    return Slidable(
-      key: const ValueKey(0),
-      endActionPane: ActionPane(
-        extentRatio: 1 / 4,
-        motion: const ScrollMotion(),
-        children: [
-          CustomSlidableAction(
-            backgroundColor: AppTheme.RED,
-            autoClose: false,
-            onPressed: (BuildContext context) {
-              deleteDialog(data);
-              setState(() {
-                Slidable.of(context)?.close();
-              });
-            },
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: BaseText(
-              'delete'.tr,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
-      child: GestureDetector(
-        onTap: () {
-          Get.toNamed(GetPageRoutes.contactDetails,
-              arguments: ContactArgument(data));
-        },
-        behavior: HitTestBehavior.opaque,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Row(
+    final tag = data.getSuspensionTag();
+    final offStage = !data.isShowSuspension;
+
+    return Column(
+      children: [
+        Offstage(offstage: offStage, child: buildAlphabetHeader(tag)),
+        Slidable(
+          key: const ValueKey(0),
+          endActionPane: ActionPane(
+            extentRatio: 1 / 4,
+            motion: const ScrollMotion(),
             children: [
-              BaseAvatar(
-                width: 60,
-                height: 60,
-                iconPaddingAll: 15,
-                imagePath: data.imagePath,
-              ),
-              const SizedBox(width: 20),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  data.name != ''
-                      ? BaseText(data.name, fontSize: 18)
-                      : BaseText(data.contactNo, fontSize: 18),
-                  if (data.organisation != '')
-                    BaseText(
-                      data.organisation,
-                      fontSize: 12,
-                      color: AppTheme.HINT,
-                    ),
-                ],
+              CustomSlidableAction(
+                backgroundColor: AppTheme.RED,
+                autoClose: false,
+                onPressed: (BuildContext context) {
+                  deleteDialog(data);
+                  setState(() {
+                    Slidable.of(context)?.close();
+                  });
+                },
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: BaseText(
+                  'delete'.tr,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
               ),
             ],
           ),
+          child: GestureDetector(
+            onTap: () {
+              Get.toNamed(GetPageRoutes.contactDetails,
+                  arguments: ContactArgument(data));
+            },
+            behavior: HitTestBehavior.opaque,
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: [
+                  BaseAvatar(
+                    width: 60,
+                    height: 60,
+                    iconPaddingAll: 15,
+                    imagePath: data.imagePath,
+                  ),
+                  const SizedBox(width: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      data.name != ''
+                          ? BaseText(data.name, fontSize: 18)
+                          : BaseText(data.contactNo, fontSize: 18),
+                      if (data.organisation != '')
+                        BaseText(
+                          data.organisation,
+                          fontSize: 12,
+                          color: AppTheme.HINT,
+                        ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 
-  Future<void> deleteDialog(ContactBean data) async {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: AppTheme.BG_COLOR,
-          title: BaseText(
-            "delete_title".tr,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-          content: RichText(
-            text: TextSpan(
-              text: '${'delete_desc'.tr} : ( ',
-              children: <TextSpan>[
-                TextSpan(
-                  text: data.name?.isNotEmpty == true
-                      ? data.name
-                      : data.contactNo,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
-                const TextSpan(text: ' ) ?'),
-              ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: BaseText(
-                'cancel'.tr,
-                color: AppTheme.HINT,
-                fontSize: 16,
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                viewModel.deleteContact(data);
-              },
-              child: BaseText(
-                'delete'.tr,
-                color: AppTheme.RED,
-                fontSize: 16,
-              ),
-            ),
-          ],
-        );
-      },
+  Widget buildAlphabetHeader(String tag) {
+    return Container(
+      alignment: Alignment.centerLeft,
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+      decoration: BoxDecoration(
+        color: const Color(0x26ffffff).withOpacity(0.17),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(25),
+        ),
+      ),
+      child: BaseText(
+        tag,
+        //color: Color(0xff2575fc),
+        fontWeight: FontWeight.bold,
+        fontSize: 26,
+      ),
     );
   }
 }

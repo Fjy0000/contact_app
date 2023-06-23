@@ -4,11 +4,13 @@ import 'package:app2/main.dart';
 import 'package:app2/model/body/contact_body.dart';
 import 'package:app2/utils/constants/enums.dart';
 import 'package:app2/utils/extension.dart';
+import 'package:azlistview/azlistview.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 class ReadContactViewModel extends BaseViewModel {
   RxList<ContactBean> contactList = RxList();
+
   final response = Rxn<ContactBean>();
 
   Future<void> getData() async {
@@ -33,7 +35,9 @@ class ReadContactViewModel extends BaseViewModel {
       contactList.add(contact);
     }
     //sorting
-    contactList.sort((a, b) => a.name!.compareTo(b.name!));
+    //contactList.sort((a, b) => a.name!.compareTo(b.name!));
+    SuspensionUtil.sortListBySuspensionTag(contactList);
+    SuspensionUtil.setShowSuspensionStatus(contactList);
 
     if (contactList.isEmpty) {
       appState.value = AppState.Empty;
