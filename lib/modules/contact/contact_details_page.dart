@@ -11,11 +11,13 @@ import 'package:app2/utils/constants/enums.dart';
 import 'package:app2/utils/extension.dart';
 import 'package:app2/utils/get_page_router.dart';
 import 'package:app2/utils/image_utils.dart';
+import 'package:app2/utils/permission_util.dart';
 import 'package:app2/widgets/base_avatar.dart';
 import 'package:app2/widgets/base_scaffold.dart';
 import 'package:app2/widgets/base_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactDetailsPage extends StatefulWidget {
@@ -69,6 +71,24 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
             );
           }),
     ]);
+  }
+
+  Future<void> requestPhoneCall(ContactBean? data) async {
+    requestPermission([Permission.phone],
+        customMsg: 'permission_required_phone'.tr, onSuccess: (value) async {
+      if (value.isGranted) {
+        final Uri phone = Uri(
+          scheme: 'tel',
+          path: data?.contactNo,
+        );
+        var url = phone.toString();
+        if (await canLaunch(url)) {
+          await launch(url);
+        } else {
+          throw '${'cannot_launch'.tr} $url';
+        }
+      }
+    });
   }
 
   @override
@@ -240,17 +260,8 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                onPressed: () async {
-                  final Uri phone = Uri(
-                    scheme: 'tel',
-                    path: data?.contactNo,
-                  );
-                  var url = phone.toString();
-                  if (await canLaunch(url)) {
-                    await launch(url);
-                  } else {
-                    throw '${'cannot_launch'.tr} $url';
-                  }
+                onPressed: () {
+                  requestPhoneCall(data);
                 },
                 icon: const Icon(
                   Icons.phone,

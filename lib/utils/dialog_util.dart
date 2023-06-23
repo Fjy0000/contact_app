@@ -88,7 +88,7 @@ void showAlertDialog(
 
   Widget? titleWidget;
   if (title != null) {
-    titleWidget = BaseText(title);
+    titleWidget = BaseText(title,color: AppTheme.BLACK24,);
   }
 
   return showDialog<void>(
@@ -101,7 +101,12 @@ void showAlertDialog(
         },
         child: AlertDialog(
           title: titleWidget,
-          content: message?.isNotEmpty == true ? BaseText(message) : null,
+          content: message?.isNotEmpty == true
+              ? BaseText(
+                  message,
+                  color: AppTheme.BLACK24,
+                )
+              : null,
           actions: actions,
         ),
       );

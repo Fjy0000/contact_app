@@ -20,8 +20,13 @@ const Map<String, String> enUS = {
   "loading": "Loading",
   "failed": "Failed",
   "empty": "Empty",
-  "permission_required_camera": "Permission required camera",
-  "permission_required_storage": "Permission required storage",
+  "permission_required": "Permission Required",
+  "permission_required_camera":
+      "You need to turn on the camera permissions to continue",
+  "permission_required_storage":
+      "You need to open the storage permissions to continue",
+  "permission_required_phone":
+      "You need to turn on the phone permissions to continue",
   "no_app_state": "No app state specified",
   "no_result_found": "No Result Found",
   "nothing_now": "There's nothing for now",
