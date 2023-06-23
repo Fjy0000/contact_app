@@ -32,6 +32,9 @@ class ReadContactViewModel extends BaseViewModel {
 
       contactList.add(contact);
     }
+    //sorting
+    contactList.sort((a, b) => a.name!.compareTo(b.name!));
+
     if (contactList.isEmpty) {
       appState.value = AppState.Empty;
     } else {
