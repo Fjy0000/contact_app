@@ -42,13 +42,17 @@ class ContactBean with ISuspensionBean {
   Map<String, dynamic> toJson() => _$ContactBeanToJson(this);
 
   String? get firstLetter {
-    String? str = name?.substring(0, 1).toUpperCase();
-
-    if (!RegExp(r'[a-zA-Z]').hasMatch(str ?? '')) {
+    String? str = name;
+    if (name != '') {
+      str?.substring(0, 1).toUpperCase();
+      if (!RegExp(r'[a-zA-Z]').hasMatch(str ?? '')) {
+        str = '#';
+      }
+      return str;
+    } else {
       str = '#';
+      return str;
     }
-
-    return str;
   }
 
   @override

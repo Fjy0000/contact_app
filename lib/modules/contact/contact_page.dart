@@ -191,12 +191,7 @@ class _ContactPageState extends State<ContactPage> {
                 data: viewModel.contactList,
                 itemCount: viewModel.contactList.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    children: [
-                      if (index == 0) const SizedBox(height: 10),
-                      item(viewModel.contactList[index]),
-                    ],
-                  );
+                  return item(viewModel.contactList[index]);
                 },
                 indexHintBuilder: (context, hint) => Container(
                   alignment: Alignment.center,
