@@ -194,9 +194,20 @@ class _ContactPageState extends State<ContactPage> {
                 imagePath: data.imagePath,
               ),
               const SizedBox(width: 20),
-              data.name != ''
-                  ? BaseText(data.name, fontSize: 18)
-                  : BaseText(data.contactNo, fontSize: 18),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  data.name != ''
+                      ? BaseText(data.name, fontSize: 18)
+                      : BaseText(data.contactNo, fontSize: 18),
+                  if (data.organisation != '')
+                    BaseText(
+                      data.organisation,
+                      fontSize: 12,
+                      color: AppTheme.HINT,
+                    ),
+                ],
+              ),
             ],
           ),
         ),
