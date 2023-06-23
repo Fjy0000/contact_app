@@ -39,7 +39,9 @@ class _EditContactPageState extends State<EditContactPage> {
 
   String? avatarPath;
 
-  String _countryCode = '+60';
+  String? _countryCode;
+  String? _userCountryCode;
+  String? _userContactNo;
 
   XFile? image;
   final ImagePicker picker = ImagePicker();
@@ -81,8 +83,13 @@ class _EditContactPageState extends State<EditContactPage> {
 
   @override
   void initState() {
+    splitUserCountryCode();
+    print("@@@ ${_userContactNo}");
+    print("@@@ ${_userCountryCode}");
+
+    _countryCode = _userCountryCode;
     nameController.text = arguments.contact?.name ?? "";
-    contactNoController.text = arguments.contact?.contactNo ?? "";
+    contactNoController.text = _userContactNo ?? "";
     emailController.text = arguments.contact?.email ?? "";
     organisationController.text = arguments.contact?.organisation ?? "";
     addressController.text = arguments.contact?.address ?? "";
@@ -95,6 +102,12 @@ class _EditContactPageState extends State<EditContactPage> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void splitUserCountryCode() {
+    int? spaceIndex = arguments.contact?.contactNo?.indexOf(' ');
+    _userCountryCode = arguments.contact?.contactNo?.substring(0, spaceIndex);
+    _userContactNo = arguments.contact?.contactNo?.substring(spaceIndex! + 1);
   }
 
   void update() {
@@ -197,7 +210,7 @@ class _EditContactPageState extends State<EditContactPage> {
                                   _countryCode = country.dialCode!;
                                 });
                               },
-                              initialSelection: '+60',
+                              initialSelection: _userCountryCode,
                               showCountryOnly: false,
                               showOnlyCountryWhenClosed: false,
                               alignLeft: false,
