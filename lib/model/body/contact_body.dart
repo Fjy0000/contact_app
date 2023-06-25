@@ -26,6 +26,14 @@ class ContactBean with ISuspensionBean {
   String? note;
   String? imagePath;
 
+  String? get firstLetter {
+    if (RegExp(r'[a-zA-Z]').hasMatch(name!)) {
+      return name?.substring(0, 1).toUpperCase();
+    } else {
+      return '#';
+    }
+  }
+
   ContactBean(
       {this.id,
       this.name,
@@ -40,20 +48,6 @@ class ContactBean with ISuspensionBean {
       _$ContactBeanFromJson(json);
 
   Map<String, dynamic> toJson() => _$ContactBeanToJson(this);
-
-  String? get firstLetter {
-    String? str = name;
-    if (name != '') {
-      str?.substring(0, 1).toUpperCase();
-      if (!RegExp(r'[a-zA-Z]').hasMatch(str ?? '')) {
-        str = '#';
-      }
-      return str;
-    } else {
-      str = '#';
-      return str;
-    }
-  }
 
   @override
   String getSuspensionTag() {
